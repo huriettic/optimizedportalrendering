@@ -1,0 +1,4124 @@
+{
+    "Polyhedrons": [
+        {
+            "MeshPlanes": [
+                1,
+                2,
+                3,
+                25,
+                26,
+                37,
+                38,
+                40
+            ],
+            "MeshPortals": [
+                3,
+                37,
+                38
+            ],
+            "MeshRenders": [
+                1,
+                2,
+                25,
+                26,
+                40
+            ],
+            "MeshCollisions": [
+                1,
+                2,
+                25,
+                26,
+                40
+            ],
+            "PolyhedronNumber": 0
+        },
+        {
+            "MeshPlanes": [
+                5,
+                6,
+                23,
+                24,
+                31,
+                34,
+                39,
+                43
+            ],
+            "MeshPortals": [
+                23,
+                34,
+                39
+            ],
+            "MeshRenders": [
+                5,
+                6,
+                24,
+                31,
+                43
+            ],
+            "MeshCollisions": [
+                5,
+                6,
+                24,
+                31,
+                43
+            ],
+            "PolyhedronNumber": 1
+        },
+        {
+            "MeshPlanes": [
+                8,
+                9,
+                10,
+                29,
+                30,
+                32,
+                35,
+                42
+            ],
+            "MeshPortals": [
+                10,
+                32,
+                35
+            ],
+            "MeshRenders": [
+                8,
+                9,
+                29,
+                30,
+                42
+            ],
+            "MeshCollisions": [
+                8,
+                9,
+                29,
+                30,
+                42
+            ],
+            "PolyhedronNumber": 2
+        },
+        {
+            "MeshPlanes": [
+                12,
+                13,
+                20,
+                27,
+                28,
+                33,
+                36,
+                41
+            ],
+            "MeshPortals": [
+                20,
+                33,
+                36
+            ],
+            "MeshRenders": [
+                12,
+                13,
+                27,
+                28,
+                41
+            ],
+            "MeshCollisions": [
+                12,
+                13,
+                27,
+                28,
+                41
+            ],
+            "PolyhedronNumber": 3
+        },
+        {
+            "MeshPlanes": [
+                0,
+                4,
+                7,
+                11,
+                15,
+                16
+            ],
+            "MeshPortals": [
+                4,
+                11
+            ],
+            "MeshRenders": [
+                0,
+                7,
+                15,
+                16
+            ],
+            "MeshCollisions": [
+                0,
+                7,
+                15,
+                16
+            ],
+            "PolyhedronNumber": 4
+        },
+        {
+            "MeshPlanes": [
+                14,
+                17,
+                18,
+                19,
+                21,
+                22
+            ],
+            "MeshPortals": [
+                21,
+                22
+            ],
+            "MeshRenders": [
+                14,
+                17,
+                18,
+                19
+            ],
+            "MeshCollisions": [
+                14,
+                17,
+                18,
+                19
+            ],
+            "PolyhedronNumber": 5
+        }
+    ],
+    "PolygonInformation": [
+        {
+            "Plane": 4,
+            "Portal": -1,
+            "Render": 4,
+            "Collision": 4,
+            "CollisionNumber": 0,
+            "PortalNumber": -1,
+            "MeshNumber": 0,
+            "MeshTexture": 11,
+            "MeshTextureCollection": 17
+        },
+        {
+            "Plane": 0,
+            "Portal": -1,
+            "Render": 0,
+            "Collision": 0,
+            "CollisionNumber": 1,
+            "PortalNumber": -1,
+            "MeshNumber": 1,
+            "MeshTexture": 17,
+            "MeshTextureCollection": 17
+        },
+        {
+            "Plane": 0,
+            "Portal": -1,
+            "Render": 0,
+            "Collision": 0,
+            "CollisionNumber": 2,
+            "PortalNumber": -1,
+            "MeshNumber": 2,
+            "MeshTexture": 17,
+            "MeshTextureCollection": 17
+        },
+        {
+            "Plane": 0,
+            "Portal": 4,
+            "Render": -1,
+            "Collision": -1,
+            "CollisionNumber": -1,
+            "PortalNumber": 0,
+            "MeshNumber": -1,
+            "MeshTexture": -1,
+            "MeshTextureCollection": -1
+        },
+        {
+            "Plane": 4,
+            "Portal": 0,
+            "Render": -1,
+            "Collision": -1,
+            "CollisionNumber": -1,
+            "PortalNumber": 1,
+            "MeshNumber": -1,
+            "MeshTexture": -1,
+            "MeshTextureCollection": -1
+        },
+        {
+            "Plane": 1,
+            "Portal": -1,
+            "Render": 1,
+            "Collision": 1,
+            "CollisionNumber": 3,
+            "PortalNumber": -1,
+            "MeshNumber": 3,
+            "MeshTexture": 17,
+            "MeshTextureCollection": 17
+        },
+        {
+            "Plane": 1,
+            "Portal": -1,
+            "Render": 1,
+            "Collision": 1,
+            "CollisionNumber": 4,
+            "PortalNumber": -1,
+            "MeshNumber": 4,
+            "MeshTexture": 17,
+            "MeshTextureCollection": 17
+        },
+        {
+            "Plane": 4,
+            "Portal": -1,
+            "Render": 4,
+            "Collision": 4,
+            "CollisionNumber": 5,
+            "PortalNumber": -1,
+            "MeshNumber": 5,
+            "MeshTexture": 11,
+            "MeshTextureCollection": 17
+        },
+        {
+            "Plane": 2,
+            "Portal": -1,
+            "Render": 2,
+            "Collision": 2,
+            "CollisionNumber": 6,
+            "PortalNumber": -1,
+            "MeshNumber": 6,
+            "MeshTexture": 17,
+            "MeshTextureCollection": 17
+        },
+        {
+            "Plane": 2,
+            "Portal": -1,
+            "Render": 2,
+            "Collision": 2,
+            "CollisionNumber": 7,
+            "PortalNumber": -1,
+            "MeshNumber": 7,
+            "MeshTexture": 17,
+            "MeshTextureCollection": 17
+        },
+        {
+            "Plane": 2,
+            "Portal": 4,
+            "Render": -1,
+            "Collision": -1,
+            "CollisionNumber": -1,
+            "PortalNumber": 2,
+            "MeshNumber": -1,
+            "MeshTexture": -1,
+            "MeshTextureCollection": -1
+        },
+        {
+            "Plane": 4,
+            "Portal": 2,
+            "Render": -1,
+            "Collision": -1,
+            "CollisionNumber": -1,
+            "PortalNumber": 3,
+            "MeshNumber": -1,
+            "MeshTexture": -1,
+            "MeshTextureCollection": -1
+        },
+        {
+            "Plane": 3,
+            "Portal": -1,
+            "Render": 3,
+            "Collision": 3,
+            "CollisionNumber": 8,
+            "PortalNumber": -1,
+            "MeshNumber": 8,
+            "MeshTexture": 17,
+            "MeshTextureCollection": 17
+        },
+        {
+            "Plane": 3,
+            "Portal": -1,
+            "Render": 3,
+            "Collision": 3,
+            "CollisionNumber": 9,
+            "PortalNumber": -1,
+            "MeshNumber": 9,
+            "MeshTexture": 17,
+            "MeshTextureCollection": 17
+        },
+        {
+            "Plane": 5,
+            "Portal": -1,
+            "Render": 5,
+            "Collision": 5,
+            "CollisionNumber": 10,
+            "PortalNumber": -1,
+            "MeshNumber": 10,
+            "MeshTexture": 11,
+            "MeshTextureCollection": 17
+        },
+        {
+            "Plane": 4,
+            "Portal": -1,
+            "Render": 4,
+            "Collision": 4,
+            "CollisionNumber": 11,
+            "PortalNumber": -1,
+            "MeshNumber": 11,
+            "MeshTexture": 17,
+            "MeshTextureCollection": 17
+        },
+        {
+            "Plane": 4,
+            "Portal": -1,
+            "Render": 4,
+            "Collision": 4,
+            "CollisionNumber": 12,
+            "PortalNumber": -1,
+            "MeshNumber": 12,
+            "MeshTexture": 17,
+            "MeshTextureCollection": 17
+        },
+        {
+            "Plane": 5,
+            "Portal": -1,
+            "Render": 5,
+            "Collision": 5,
+            "CollisionNumber": 13,
+            "PortalNumber": -1,
+            "MeshNumber": 13,
+            "MeshTexture": 11,
+            "MeshTextureCollection": 17
+        },
+        {
+            "Plane": 5,
+            "Portal": -1,
+            "Render": 5,
+            "Collision": 5,
+            "CollisionNumber": 14,
+            "PortalNumber": -1,
+            "MeshNumber": 14,
+            "MeshTexture": 17,
+            "MeshTextureCollection": 17
+        },
+        {
+            "Plane": 5,
+            "Portal": -1,
+            "Render": 5,
+            "Collision": 5,
+            "CollisionNumber": 15,
+            "PortalNumber": -1,
+            "MeshNumber": 15,
+            "MeshTexture": 17,
+            "MeshTextureCollection": 17
+        },
+        {
+            "Plane": 3,
+            "Portal": 5,
+            "Render": -1,
+            "Collision": -1,
+            "CollisionNumber": -1,
+            "PortalNumber": 4,
+            "MeshNumber": -1,
+            "MeshTexture": -1,
+            "MeshTextureCollection": -1
+        },
+        {
+            "Plane": 5,
+            "Portal": 3,
+            "Render": -1,
+            "Collision": -1,
+            "CollisionNumber": -1,
+            "PortalNumber": 5,
+            "MeshNumber": -1,
+            "MeshTexture": -1,
+            "MeshTextureCollection": -1
+        },
+        {
+            "Plane": 5,
+            "Portal": 1,
+            "Render": -1,
+            "Collision": -1,
+            "CollisionNumber": -1,
+            "PortalNumber": 6,
+            "MeshNumber": -1,
+            "MeshTexture": -1,
+            "MeshTextureCollection": -1
+        },
+        {
+            "Plane": 1,
+            "Portal": 5,
+            "Render": -1,
+            "Collision": -1,
+            "CollisionNumber": -1,
+            "PortalNumber": 7,
+            "MeshNumber": -1,
+            "MeshTexture": -1,
+            "MeshTextureCollection": -1
+        },
+        {
+            "Plane": 1,
+            "Portal": -1,
+            "Render": 1,
+            "Collision": 1,
+            "CollisionNumber": 16,
+            "PortalNumber": -1,
+            "MeshNumber": 16,
+            "MeshTexture": 11,
+            "MeshTextureCollection": 17
+        },
+        {
+            "Plane": 0,
+            "Portal": -1,
+            "Render": 0,
+            "Collision": 0,
+            "CollisionNumber": 17,
+            "PortalNumber": -1,
+            "MeshNumber": 17,
+            "MeshTexture": 11,
+            "MeshTextureCollection": 17
+        },
+        {
+            "Plane": 0,
+            "Portal": -1,
+            "Render": 0,
+            "Collision": 0,
+            "CollisionNumber": 18,
+            "PortalNumber": -1,
+            "MeshNumber": 18,
+            "MeshTexture": 11,
+            "MeshTextureCollection": 17
+        },
+        {
+            "Plane": 3,
+            "Portal": -1,
+            "Render": 3,
+            "Collision": 3,
+            "CollisionNumber": 19,
+            "PortalNumber": -1,
+            "MeshNumber": 19,
+            "MeshTexture": 11,
+            "MeshTextureCollection": 17
+        },
+        {
+            "Plane": 3,
+            "Portal": -1,
+            "Render": 3,
+            "Collision": 3,
+            "CollisionNumber": 20,
+            "PortalNumber": -1,
+            "MeshNumber": 20,
+            "MeshTexture": 11,
+            "MeshTextureCollection": 17
+        },
+        {
+            "Plane": 2,
+            "Portal": -1,
+            "Render": 2,
+            "Collision": 2,
+            "CollisionNumber": 21,
+            "PortalNumber": -1,
+            "MeshNumber": 21,
+            "MeshTexture": 11,
+            "MeshTextureCollection": 17
+        },
+        {
+            "Plane": 2,
+            "Portal": -1,
+            "Render": 2,
+            "Collision": 2,
+            "CollisionNumber": 22,
+            "PortalNumber": -1,
+            "MeshNumber": 22,
+            "MeshTexture": 11,
+            "MeshTextureCollection": 17
+        },
+        {
+            "Plane": 1,
+            "Portal": -1,
+            "Render": 1,
+            "Collision": 1,
+            "CollisionNumber": 23,
+            "PortalNumber": -1,
+            "MeshNumber": 23,
+            "MeshTexture": 11,
+            "MeshTextureCollection": 17
+        },
+        {
+            "Plane": 2,
+            "Portal": 3,
+            "Render": -1,
+            "Collision": -1,
+            "CollisionNumber": -1,
+            "PortalNumber": 8,
+            "MeshNumber": -1,
+            "MeshTexture": -1,
+            "MeshTextureCollection": -1
+        },
+        {
+            "Plane": 3,
+            "Portal": 2,
+            "Render": -1,
+            "Collision": -1,
+            "CollisionNumber": -1,
+            "PortalNumber": 9,
+            "MeshNumber": -1,
+            "MeshTexture": -1,
+            "MeshTextureCollection": -1
+        },
+        {
+            "Plane": 1,
+            "Portal": 2,
+            "Render": -1,
+            "Collision": -1,
+            "CollisionNumber": -1,
+            "PortalNumber": 10,
+            "MeshNumber": -1,
+            "MeshTexture": -1,
+            "MeshTextureCollection": -1
+        },
+        {
+            "Plane": 2,
+            "Portal": 1,
+            "Render": -1,
+            "Collision": -1,
+            "CollisionNumber": -1,
+            "PortalNumber": 11,
+            "MeshNumber": -1,
+            "MeshTexture": -1,
+            "MeshTextureCollection": -1
+        },
+        {
+            "Plane": 3,
+            "Portal": 0,
+            "Render": -1,
+            "Collision": -1,
+            "CollisionNumber": -1,
+            "PortalNumber": 12,
+            "MeshNumber": -1,
+            "MeshTexture": -1,
+            "MeshTextureCollection": -1
+        },
+        {
+            "Plane": 0,
+            "Portal": 3,
+            "Render": -1,
+            "Collision": -1,
+            "CollisionNumber": -1,
+            "PortalNumber": 13,
+            "MeshNumber": -1,
+            "MeshTexture": -1,
+            "MeshTextureCollection": -1
+        },
+        {
+            "Plane": 0,
+            "Portal": 1,
+            "Render": -1,
+            "Collision": -1,
+            "CollisionNumber": -1,
+            "PortalNumber": 14,
+            "MeshNumber": -1,
+            "MeshTexture": -1,
+            "MeshTextureCollection": -1
+        },
+        {
+            "Plane": 1,
+            "Portal": 0,
+            "Render": -1,
+            "Collision": -1,
+            "CollisionNumber": -1,
+            "PortalNumber": 15,
+            "MeshNumber": -1,
+            "MeshTexture": -1,
+            "MeshTextureCollection": -1
+        },
+        {
+            "Plane": 0,
+            "Portal": -1,
+            "Render": 0,
+            "Collision": 0,
+            "CollisionNumber": 24,
+            "PortalNumber": -1,
+            "MeshNumber": 24,
+            "MeshTexture": 6,
+            "MeshTextureCollection": 17
+        },
+        {
+            "Plane": 3,
+            "Portal": -1,
+            "Render": 3,
+            "Collision": 3,
+            "CollisionNumber": 25,
+            "PortalNumber": -1,
+            "MeshNumber": 25,
+            "MeshTexture": 6,
+            "MeshTextureCollection": 17
+        },
+        {
+            "Plane": 2,
+            "Portal": -1,
+            "Render": 2,
+            "Collision": 2,
+            "CollisionNumber": 26,
+            "PortalNumber": -1,
+            "MeshNumber": 26,
+            "MeshTexture": 6,
+            "MeshTextureCollection": 17
+        },
+        {
+            "Plane": 1,
+            "Portal": -1,
+            "Render": 1,
+            "Collision": 1,
+            "CollisionNumber": 27,
+            "PortalNumber": -1,
+            "MeshNumber": 27,
+            "MeshTexture": 6,
+            "MeshTextureCollection": 17
+        }
+    ],
+    "PolygonMeshes": [
+        {
+            "Vertices": [
+                {
+                    "x": -2.5,
+                    "y": 0.0,
+                    "z": -7.5
+                },
+                {
+                    "x": -2.5,
+                    "y": 2.5,
+                    "z": -7.5
+                },
+                {
+                    "x": -2.5,
+                    "y": 2.5,
+                    "z": 7.5
+                },
+                {
+                    "x": -2.5,
+                    "y": 0.0,
+                    "z": 7.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": 0.0,
+                    "y": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 6.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 6.0,
+                    "y": -1.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3
+            ],
+            "Normals": [
+                {
+                    "x": 1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": 7.5,
+                    "y": 0.0,
+                    "z": -7.5
+                },
+                {
+                    "x": 12.5,
+                    "y": 0.0,
+                    "z": -12.5
+                },
+                {
+                    "x": -12.5,
+                    "y": 0.0,
+                    "z": -12.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 0.0,
+                    "z": -7.5
+                },
+                {
+                    "x": -2.5,
+                    "y": 0.0,
+                    "z": -7.5
+                },
+                {
+                    "x": 2.5,
+                    "y": 0.0,
+                    "z": -7.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": 3.0,
+                    "y": -3.0
+                },
+                {
+                    "x": 5.0,
+                    "y": -5.0
+                },
+                {
+                    "x": 5.0,
+                    "y": 5.0
+                },
+                {
+                    "x": 3.0,
+                    "y": 3.0
+                },
+                {
+                    "x": 3.0,
+                    "y": 1.0
+                },
+                {
+                    "x": 3.0,
+                    "y": -1.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3,
+                0,
+                3,
+                4,
+                0,
+                4,
+                5
+            ],
+            "Normals": [
+                {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": 2.5,
+                    "y": 2.5,
+                    "z": -7.5
+                },
+                {
+                    "x": -2.5,
+                    "y": 2.5,
+                    "z": -7.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 2.5,
+                    "z": -7.5
+                },
+                {
+                    "x": -12.5,
+                    "y": 2.5,
+                    "z": -12.5
+                },
+                {
+                    "x": 12.5,
+                    "y": 2.5,
+                    "z": -12.5
+                },
+                {
+                    "x": 7.5,
+                    "y": 2.5,
+                    "z": -7.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": 3.0,
+                    "y": -1.0
+                },
+                {
+                    "x": 3.0,
+                    "y": 1.0
+                },
+                {
+                    "x": 3.0,
+                    "y": 3.0
+                },
+                {
+                    "x": 5.0,
+                    "y": 5.0
+                },
+                {
+                    "x": 5.0,
+                    "y": -5.0
+                },
+                {
+                    "x": 3.0,
+                    "y": -3.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3,
+                0,
+                3,
+                4,
+                0,
+                4,
+                5
+            ],
+            "Normals": [
+                {
+                    "x": 0.0,
+                    "y": -1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": -1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": -1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": -1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": -1.0,
+                    "z": 0.0
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": -2.5,
+                    "y": 0.0,
+                    "z": -7.5
+                },
+                {
+                    "x": -2.5,
+                    "y": 2.5,
+                    "z": -7.5
+                },
+                {
+                    "x": 2.5,
+                    "y": 2.5,
+                    "z": -7.5
+                },
+                {
+                    "x": 2.5,
+                    "y": 0.0,
+                    "z": -7.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": 0.0,
+                    "y": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 2.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 2.0,
+                    "y": -1.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3
+            ],
+            "Normals": [
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -1.0
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": 2.5,
+                    "y": 0.0,
+                    "z": -7.5
+                },
+                {
+                    "x": 2.5,
+                    "y": 2.5,
+                    "z": -7.5
+                },
+                {
+                    "x": -2.5,
+                    "y": 2.5,
+                    "z": -7.5
+                },
+                {
+                    "x": -2.5,
+                    "y": 0.0,
+                    "z": -7.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": 0.0,
+                    "y": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 2.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 2.0,
+                    "y": -1.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3
+            ],
+            "Normals": [
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 1.0
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": 12.5,
+                    "y": 0.0,
+                    "z": 12.5
+                },
+                {
+                    "x": 12.5,
+                    "y": 0.0,
+                    "z": -12.5
+                },
+                {
+                    "x": 7.5,
+                    "y": 0.0,
+                    "z": -7.5
+                },
+                {
+                    "x": 7.5,
+                    "y": 0.0,
+                    "z": -2.5
+                },
+                {
+                    "x": 7.5,
+                    "y": 0.0,
+                    "z": 2.5
+                },
+                {
+                    "x": 7.5,
+                    "y": 0.0,
+                    "z": 7.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": -5.0,
+                    "y": -5.0
+                },
+                {
+                    "x": 5.0,
+                    "y": -5.0
+                },
+                {
+                    "x": 3.0,
+                    "y": -3.0
+                },
+                {
+                    "x": 1.0,
+                    "y": -3.0
+                },
+                {
+                    "x": -1.0,
+                    "y": -3.0
+                },
+                {
+                    "x": -3.0,
+                    "y": -3.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3,
+                0,
+                3,
+                4,
+                0,
+                4,
+                5
+            ],
+            "Normals": [
+                {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": 7.5,
+                    "y": 2.5,
+                    "z": 7.5
+                },
+                {
+                    "x": 7.5,
+                    "y": 2.5,
+                    "z": 2.5
+                },
+                {
+                    "x": 7.5,
+                    "y": 2.5,
+                    "z": -2.5
+                },
+                {
+                    "x": 7.5,
+                    "y": 2.5,
+                    "z": -7.5
+                },
+                {
+                    "x": 12.5,
+                    "y": 2.5,
+                    "z": -12.5
+                },
+                {
+                    "x": 12.5,
+                    "y": 2.5,
+                    "z": 12.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": -3.0,
+                    "y": -3.0
+                },
+                {
+                    "x": -1.0,
+                    "y": -3.0
+                },
+                {
+                    "x": 1.0,
+                    "y": -3.0
+                },
+                {
+                    "x": 3.0,
+                    "y": -3.0
+                },
+                {
+                    "x": 5.0,
+                    "y": -5.0
+                },
+                {
+                    "x": -5.0,
+                    "y": -5.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3,
+                0,
+                3,
+                4,
+                0,
+                4,
+                5
+            ],
+            "Normals": [
+                {
+                    "x": 0.0,
+                    "y": -1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": -1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": -1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": -1.0,
+                    "z": 0.0
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": 2.5,
+                    "y": 0.0,
+                    "z": 7.5
+                },
+                {
+                    "x": 2.5,
+                    "y": 2.5,
+                    "z": 7.5
+                },
+                {
+                    "x": 2.5,
+                    "y": 2.5,
+                    "z": -7.5
+                },
+                {
+                    "x": 2.5,
+                    "y": 0.0,
+                    "z": -7.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": 0.0,
+                    "y": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 6.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 6.0,
+                    "y": -1.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3
+            ],
+            "Normals": [
+                {
+                    "x": -1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": -1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": -1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": -1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": 12.5,
+                    "y": 0.0,
+                    "z": 12.5
+                },
+                {
+                    "x": 7.5,
+                    "y": 0.0,
+                    "z": 7.5
+                },
+                {
+                    "x": 2.5,
+                    "y": 0.0,
+                    "z": 7.5
+                },
+                {
+                    "x": -2.5,
+                    "y": 0.0,
+                    "z": 7.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 0.0,
+                    "z": 7.5
+                },
+                {
+                    "x": -12.5,
+                    "y": 0.0,
+                    "z": 12.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": -5.0,
+                    "y": -5.0
+                },
+                {
+                    "x": -3.0,
+                    "y": -3.0
+                },
+                {
+                    "x": -3.0,
+                    "y": -1.0
+                },
+                {
+                    "x": -3.0,
+                    "y": 1.0
+                },
+                {
+                    "x": -3.0,
+                    "y": 3.0
+                },
+                {
+                    "x": -5.0,
+                    "y": 5.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3,
+                0,
+                3,
+                4,
+                0,
+                4,
+                5
+            ],
+            "Normals": [
+                {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": -12.5,
+                    "y": 2.5,
+                    "z": 12.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 2.5,
+                    "z": 7.5
+                },
+                {
+                    "x": -2.5,
+                    "y": 2.5,
+                    "z": 7.5
+                },
+                {
+                    "x": 2.5,
+                    "y": 2.5,
+                    "z": 7.5
+                },
+                {
+                    "x": 7.5,
+                    "y": 2.5,
+                    "z": 7.5
+                },
+                {
+                    "x": 12.5,
+                    "y": 2.5,
+                    "z": 12.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": -5.0,
+                    "y": 5.0
+                },
+                {
+                    "x": -3.0,
+                    "y": 3.0
+                },
+                {
+                    "x": -3.0,
+                    "y": 1.0
+                },
+                {
+                    "x": -3.0,
+                    "y": -1.0
+                },
+                {
+                    "x": -3.0,
+                    "y": -3.0
+                },
+                {
+                    "x": -5.0,
+                    "y": -5.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3,
+                0,
+                3,
+                4,
+                0,
+                4,
+                5
+            ],
+            "Normals": [
+                {
+                    "x": 0.0,
+                    "y": -1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": -1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": -1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": -1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": -1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": -1.0,
+                    "z": 0.0
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": 2.5,
+                    "y": 0.0,
+                    "z": 7.5
+                },
+                {
+                    "x": 2.5,
+                    "y": 2.5,
+                    "z": 7.5
+                },
+                {
+                    "x": -2.5,
+                    "y": 2.5,
+                    "z": 7.5
+                },
+                {
+                    "x": -2.5,
+                    "y": 0.0,
+                    "z": 7.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": 0.0,
+                    "y": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 2.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 2.0,
+                    "y": -1.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3
+            ],
+            "Normals": [
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 1.0
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": -2.5,
+                    "y": 0.0,
+                    "z": 7.5
+                },
+                {
+                    "x": -2.5,
+                    "y": 2.5,
+                    "z": 7.5
+                },
+                {
+                    "x": 2.5,
+                    "y": 2.5,
+                    "z": 7.5
+                },
+                {
+                    "x": 2.5,
+                    "y": 0.0,
+                    "z": 7.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": 0.0,
+                    "y": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 2.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 2.0,
+                    "y": -1.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3
+            ],
+            "Normals": [
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -1.0
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": -7.5,
+                    "y": 0.0,
+                    "z": 7.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 0.0,
+                    "z": 2.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 0.0,
+                    "z": -2.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 0.0,
+                    "z": -7.5
+                },
+                {
+                    "x": -12.5,
+                    "y": 0.0,
+                    "z": -12.5
+                },
+                {
+                    "x": -12.5,
+                    "y": 0.0,
+                    "z": 12.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": -3.0,
+                    "y": 3.0
+                },
+                {
+                    "x": -1.0,
+                    "y": 3.0
+                },
+                {
+                    "x": 1.0,
+                    "y": 3.0
+                },
+                {
+                    "x": 3.0,
+                    "y": 3.0
+                },
+                {
+                    "x": 5.0,
+                    "y": 5.0
+                },
+                {
+                    "x": -5.0,
+                    "y": 5.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3,
+                0,
+                3,
+                4,
+                0,
+                4,
+                5
+            ],
+            "Normals": [
+                {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": -12.5,
+                    "y": 2.5,
+                    "z": 12.5
+                },
+                {
+                    "x": -12.5,
+                    "y": 2.5,
+                    "z": -12.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 2.5,
+                    "z": -7.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 2.5,
+                    "z": -2.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 2.5,
+                    "z": 2.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 2.5,
+                    "z": 7.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": -5.0,
+                    "y": 5.0
+                },
+                {
+                    "x": 5.0,
+                    "y": 5.0
+                },
+                {
+                    "x": 3.0,
+                    "y": 3.0
+                },
+                {
+                    "x": 1.0,
+                    "y": 3.0
+                },
+                {
+                    "x": -1.0,
+                    "y": 3.0
+                },
+                {
+                    "x": -3.0,
+                    "y": 3.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3,
+                0,
+                3,
+                4,
+                0,
+                4,
+                5
+            ],
+            "Normals": [
+                {
+                    "x": 0.0,
+                    "y": -1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": -1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": -1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": -1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": -1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": -1.0,
+                    "z": 0.0
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": 7.5,
+                    "y": 0.0,
+                    "z": -2.5
+                },
+                {
+                    "x": 7.5,
+                    "y": 2.5,
+                    "z": -2.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 2.5,
+                    "z": -2.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 0.0,
+                    "z": -2.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": 0.0,
+                    "y": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 6.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 6.0,
+                    "y": -1.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3
+            ],
+            "Normals": [
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 1.0
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": 2.5,
+                    "y": 0.0,
+                    "z": 7.5
+                },
+                {
+                    "x": 2.5,
+                    "y": 0.0,
+                    "z": -7.5
+                },
+                {
+                    "x": -2.5,
+                    "y": 0.0,
+                    "z": -7.5
+                },
+                {
+                    "x": -2.5,
+                    "y": 0.0,
+                    "z": 7.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": -3.0,
+                    "y": -1.0
+                },
+                {
+                    "x": 3.0,
+                    "y": -1.0
+                },
+                {
+                    "x": 3.0,
+                    "y": 1.0
+                },
+                {
+                    "x": -3.0,
+                    "y": 1.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3
+            ],
+            "Normals": [
+                {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": -2.5,
+                    "y": 2.5,
+                    "z": 7.5
+                },
+                {
+                    "x": -2.5,
+                    "y": 2.5,
+                    "z": -7.5
+                },
+                {
+                    "x": 2.5,
+                    "y": 2.5,
+                    "z": -7.5
+                },
+                {
+                    "x": 2.5,
+                    "y": 2.5,
+                    "z": 7.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": -3.0,
+                    "y": 1.0
+                },
+                {
+                    "x": 3.0,
+                    "y": 1.0
+                },
+                {
+                    "x": 3.0,
+                    "y": -1.0
+                },
+                {
+                    "x": -3.0,
+                    "y": -1.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3
+            ],
+            "Normals": [
+                {
+                    "x": 0.0,
+                    "y": -1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": -1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": -1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": -1.0,
+                    "z": 0.0
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": -7.5,
+                    "y": 0.0,
+                    "z": 2.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 2.5,
+                    "z": 2.5
+                },
+                {
+                    "x": 7.5,
+                    "y": 2.5,
+                    "z": 2.5
+                },
+                {
+                    "x": 7.5,
+                    "y": 0.0,
+                    "z": 2.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": 0.0,
+                    "y": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 6.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 6.0,
+                    "y": -1.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3
+            ],
+            "Normals": [
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -1.0
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": 7.5,
+                    "y": 0.0,
+                    "z": 2.5
+                },
+                {
+                    "x": 7.5,
+                    "y": 0.0,
+                    "z": -2.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 0.0,
+                    "z": -2.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 0.0,
+                    "z": 2.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": -1.0,
+                    "y": -3.0
+                },
+                {
+                    "x": 1.0,
+                    "y": -3.0
+                },
+                {
+                    "x": 1.0,
+                    "y": 3.0
+                },
+                {
+                    "x": -1.0,
+                    "y": 3.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3
+            ],
+            "Normals": [
+                {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": -7.5,
+                    "y": 2.5,
+                    "z": 2.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 2.5,
+                    "z": -2.5
+                },
+                {
+                    "x": 7.5,
+                    "y": 2.5,
+                    "z": -2.5
+                },
+                {
+                    "x": 7.5,
+                    "y": 2.5,
+                    "z": 2.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": -1.0,
+                    "y": 3.0
+                },
+                {
+                    "x": 1.0,
+                    "y": 3.0
+                },
+                {
+                    "x": 1.0,
+                    "y": -3.0
+                },
+                {
+                    "x": -1.0,
+                    "y": -3.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3
+            ],
+            "Normals": [
+                {
+                    "x": 0.0,
+                    "y": -1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": -1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": -1.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": -1.0,
+                    "z": 0.0
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": -7.5,
+                    "y": 0.0,
+                    "z": 2.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 2.5,
+                    "z": 2.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 2.5,
+                    "z": -2.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 0.0,
+                    "z": -2.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": 0.0,
+                    "y": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 2.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 2.0,
+                    "y": -1.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3
+            ],
+            "Normals": [
+                {
+                    "x": -1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": -1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": -1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": -1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": -7.5,
+                    "y": 0.0,
+                    "z": -2.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 2.5,
+                    "z": -2.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 2.5,
+                    "z": 2.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 0.0,
+                    "z": 2.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": 0.0,
+                    "y": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 2.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 2.0,
+                    "y": -1.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3
+            ],
+            "Normals": [
+                {
+                    "x": 1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": 7.5,
+                    "y": 0.0,
+                    "z": 2.5
+                },
+                {
+                    "x": 7.5,
+                    "y": 2.5,
+                    "z": 2.5
+                },
+                {
+                    "x": 7.5,
+                    "y": 2.5,
+                    "z": -2.5
+                },
+                {
+                    "x": 7.5,
+                    "y": 0.0,
+                    "z": -2.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": 0.0,
+                    "y": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 2.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 2.0,
+                    "y": -1.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3
+            ],
+            "Normals": [
+                {
+                    "x": -1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": -1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": -1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": -1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": 7.5,
+                    "y": 0.0,
+                    "z": -2.5
+                },
+                {
+                    "x": 7.5,
+                    "y": 2.5,
+                    "z": -2.5
+                },
+                {
+                    "x": 7.5,
+                    "y": 2.5,
+                    "z": 2.5
+                },
+                {
+                    "x": 7.5,
+                    "y": 0.0,
+                    "z": 2.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": 0.0,
+                    "y": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 2.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 2.0,
+                    "y": -1.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3
+            ],
+            "Normals": [
+                {
+                    "x": 1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": 7.5,
+                    "y": 0.0,
+                    "z": -7.5
+                },
+                {
+                    "x": 7.5,
+                    "y": 2.5,
+                    "z": -7.5
+                },
+                {
+                    "x": 7.5,
+                    "y": 2.5,
+                    "z": -2.5
+                },
+                {
+                    "x": 7.5,
+                    "y": 0.0,
+                    "z": -2.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": 8.0,
+                    "y": -1.0
+                },
+                {
+                    "x": 8.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 10.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 10.0,
+                    "y": -1.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3
+            ],
+            "Normals": [
+                {
+                    "x": 1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": 2.5,
+                    "y": 0.0,
+                    "z": -7.5
+                },
+                {
+                    "x": 2.5,
+                    "y": 2.5,
+                    "z": -7.5
+                },
+                {
+                    "x": 7.5,
+                    "y": 2.5,
+                    "z": -7.5
+                },
+                {
+                    "x": 7.5,
+                    "y": 0.0,
+                    "z": -7.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": 6.0,
+                    "y": -1.0
+                },
+                {
+                    "x": 6.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 8.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 8.0,
+                    "y": -1.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3
+            ],
+            "Normals": [
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -1.0
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": -7.5,
+                    "y": 0.0,
+                    "z": -7.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 2.5,
+                    "z": -7.5
+                },
+                {
+                    "x": -2.5,
+                    "y": 2.5,
+                    "z": -7.5
+                },
+                {
+                    "x": -2.5,
+                    "y": 0.0,
+                    "z": -7.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": -2.0,
+                    "y": -1.0
+                },
+                {
+                    "x": -2.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": -1.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3
+            ],
+            "Normals": [
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -1.0
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": -7.5,
+                    "y": 0.0,
+                    "z": -2.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 2.5,
+                    "z": -2.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 2.5,
+                    "z": -7.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 0.0,
+                    "z": -7.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": -4.0,
+                    "y": -1.0
+                },
+                {
+                    "x": -4.0,
+                    "y": 0.0
+                },
+                {
+                    "x": -2.0,
+                    "y": 0.0
+                },
+                {
+                    "x": -2.0,
+                    "y": -1.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3
+            ],
+            "Normals": [
+                {
+                    "x": -1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": -1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": -1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": -1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": -7.5,
+                    "y": 0.0,
+                    "z": 7.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 2.5,
+                    "z": 7.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 2.5,
+                    "z": 2.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 0.0,
+                    "z": 2.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": 8.0,
+                    "y": -1.0
+                },
+                {
+                    "x": 8.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 10.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 10.0,
+                    "y": -1.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3
+            ],
+            "Normals": [
+                {
+                    "x": -1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": -1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": -1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": -1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": -2.5,
+                    "y": 0.0,
+                    "z": 7.5
+                },
+                {
+                    "x": -2.5,
+                    "y": 2.5,
+                    "z": 7.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 2.5,
+                    "z": 7.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 0.0,
+                    "z": 7.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": 6.0,
+                    "y": -1.0
+                },
+                {
+                    "x": 6.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 8.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 8.0,
+                    "y": -1.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3
+            ],
+            "Normals": [
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 1.0
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": 7.5,
+                    "y": 0.0,
+                    "z": 7.5
+                },
+                {
+                    "x": 7.5,
+                    "y": 2.5,
+                    "z": 7.5
+                },
+                {
+                    "x": 2.5,
+                    "y": 2.5,
+                    "z": 7.5
+                },
+                {
+                    "x": 2.5,
+                    "y": 0.0,
+                    "z": 7.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": -2.0,
+                    "y": -1.0
+                },
+                {
+                    "x": -2.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": -1.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3
+            ],
+            "Normals": [
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 1.0
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": 7.5,
+                    "y": 0.0,
+                    "z": 2.5
+                },
+                {
+                    "x": 7.5,
+                    "y": 2.5,
+                    "z": 2.5
+                },
+                {
+                    "x": 7.5,
+                    "y": 2.5,
+                    "z": 7.5
+                },
+                {
+                    "x": 7.5,
+                    "y": 0.0,
+                    "z": 7.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": -4.0,
+                    "y": -1.0
+                },
+                {
+                    "x": -4.0,
+                    "y": 0.0
+                },
+                {
+                    "x": -2.0,
+                    "y": 0.0
+                },
+                {
+                    "x": -2.0,
+                    "y": -1.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3
+            ],
+            "Normals": [
+                {
+                    "x": 1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": -7.5,
+                    "y": 0.0,
+                    "z": 7.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 2.5,
+                    "z": 7.5
+                },
+                {
+                    "x": -12.5,
+                    "y": 2.5,
+                    "z": 12.5
+                },
+                {
+                    "x": -12.5,
+                    "y": 0.0,
+                    "z": 12.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": 0.0,
+                    "y": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 2.8284270763397219,
+                    "y": 0.0
+                },
+                {
+                    "x": 2.8284270763397219,
+                    "y": -1.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3
+            ],
+            "Normals": [
+                {
+                    "x": 0.7071068286895752,
+                    "y": 0.0,
+                    "z": 0.7071068286895752
+                },
+                {
+                    "x": 0.7071068286895752,
+                    "y": 0.0,
+                    "z": 0.7071068286895752
+                },
+                {
+                    "x": 0.7071068286895752,
+                    "y": 0.0,
+                    "z": 0.7071068286895752
+                },
+                {
+                    "x": 0.7071068286895752,
+                    "y": 0.0,
+                    "z": 0.7071068286895752
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": -12.5,
+                    "y": 0.0,
+                    "z": 12.5
+                },
+                {
+                    "x": -12.5,
+                    "y": 2.5,
+                    "z": 12.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 2.5,
+                    "z": 7.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 0.0,
+                    "z": 7.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": 0.0,
+                    "y": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 2.8284270763397219,
+                    "y": 0.0
+                },
+                {
+                    "x": 2.8284270763397219,
+                    "y": -1.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3
+            ],
+            "Normals": [
+                {
+                    "x": -0.7071068286895752,
+                    "y": 0.0,
+                    "z": -0.7071068286895752
+                },
+                {
+                    "x": -0.7071068286895752,
+                    "y": 0.0,
+                    "z": -0.7071068286895752
+                },
+                {
+                    "x": -0.7071068286895752,
+                    "y": 0.0,
+                    "z": -0.7071068286895752
+                },
+                {
+                    "x": -0.7071068286895752,
+                    "y": 0.0,
+                    "z": -0.7071068286895752
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": 7.5,
+                    "y": 0.0,
+                    "z": 7.5
+                },
+                {
+                    "x": 7.5,
+                    "y": 2.5,
+                    "z": 7.5
+                },
+                {
+                    "x": 12.5,
+                    "y": 2.5,
+                    "z": 12.5
+                },
+                {
+                    "x": 12.5,
+                    "y": 0.0,
+                    "z": 12.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": 0.0,
+                    "y": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 2.8284270763397219,
+                    "y": 0.0
+                },
+                {
+                    "x": 2.8284270763397219,
+                    "y": -1.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3
+            ],
+            "Normals": [
+                {
+                    "x": 0.7071068286895752,
+                    "y": 0.0,
+                    "z": -0.7071068286895752
+                },
+                {
+                    "x": 0.7071068286895752,
+                    "y": 0.0,
+                    "z": -0.7071068286895752
+                },
+                {
+                    "x": 0.7071068286895752,
+                    "y": 0.0,
+                    "z": -0.7071068286895752
+                },
+                {
+                    "x": 0.7071068286895752,
+                    "y": 0.0,
+                    "z": -0.7071068286895752
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": 12.5,
+                    "y": 0.0,
+                    "z": 12.5
+                },
+                {
+                    "x": 12.5,
+                    "y": 2.5,
+                    "z": 12.5
+                },
+                {
+                    "x": 7.5,
+                    "y": 2.5,
+                    "z": 7.5
+                },
+                {
+                    "x": 7.5,
+                    "y": 0.0,
+                    "z": 7.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": 0.0,
+                    "y": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 2.8284270763397219,
+                    "y": 0.0
+                },
+                {
+                    "x": 2.8284270763397219,
+                    "y": -1.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3
+            ],
+            "Normals": [
+                {
+                    "x": -0.7071068286895752,
+                    "y": 0.0,
+                    "z": 0.7071068286895752
+                },
+                {
+                    "x": -0.7071068286895752,
+                    "y": 0.0,
+                    "z": 0.7071068286895752
+                },
+                {
+                    "x": -0.7071068286895752,
+                    "y": 0.0,
+                    "z": 0.7071068286895752
+                },
+                {
+                    "x": -0.7071068286895752,
+                    "y": 0.0,
+                    "z": 0.7071068286895752
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": -7.5,
+                    "y": 0.0,
+                    "z": -7.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 2.5,
+                    "z": -7.5
+                },
+                {
+                    "x": -12.5,
+                    "y": 2.5,
+                    "z": -12.5
+                },
+                {
+                    "x": -12.5,
+                    "y": 0.0,
+                    "z": -12.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": 0.0,
+                    "y": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 2.8284270763397219,
+                    "y": 0.0
+                },
+                {
+                    "x": 2.8284270763397219,
+                    "y": -1.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3
+            ],
+            "Normals": [
+                {
+                    "x": -0.7071068286895752,
+                    "y": 0.0,
+                    "z": 0.7071068286895752
+                },
+                {
+                    "x": -0.7071068286895752,
+                    "y": 0.0,
+                    "z": 0.7071068286895752
+                },
+                {
+                    "x": -0.7071068286895752,
+                    "y": 0.0,
+                    "z": 0.7071068286895752
+                },
+                {
+                    "x": -0.7071068286895752,
+                    "y": 0.0,
+                    "z": 0.7071068286895752
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": -12.5,
+                    "y": 0.0,
+                    "z": -12.5
+                },
+                {
+                    "x": -12.5,
+                    "y": 2.5,
+                    "z": -12.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 2.5,
+                    "z": -7.5
+                },
+                {
+                    "x": -7.5,
+                    "y": 0.0,
+                    "z": -7.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": 0.0,
+                    "y": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 2.8284270763397219,
+                    "y": 0.0
+                },
+                {
+                    "x": 2.8284270763397219,
+                    "y": -1.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3
+            ],
+            "Normals": [
+                {
+                    "x": 0.7071068286895752,
+                    "y": 0.0,
+                    "z": -0.7071068286895752
+                },
+                {
+                    "x": 0.7071068286895752,
+                    "y": 0.0,
+                    "z": -0.7071068286895752
+                },
+                {
+                    "x": 0.7071068286895752,
+                    "y": 0.0,
+                    "z": -0.7071068286895752
+                },
+                {
+                    "x": 0.7071068286895752,
+                    "y": 0.0,
+                    "z": -0.7071068286895752
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": 7.5,
+                    "y": 0.0,
+                    "z": -7.5
+                },
+                {
+                    "x": 7.5,
+                    "y": 2.5,
+                    "z": -7.5
+                },
+                {
+                    "x": 12.5,
+                    "y": 2.5,
+                    "z": -12.5
+                },
+                {
+                    "x": 12.5,
+                    "y": 0.0,
+                    "z": -12.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": 0.0,
+                    "y": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 2.8284270763397219,
+                    "y": 0.0
+                },
+                {
+                    "x": 2.8284270763397219,
+                    "y": -1.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3
+            ],
+            "Normals": [
+                {
+                    "x": -0.7071068286895752,
+                    "y": 0.0,
+                    "z": -0.7071068286895752
+                },
+                {
+                    "x": -0.7071068286895752,
+                    "y": 0.0,
+                    "z": -0.7071068286895752
+                },
+                {
+                    "x": -0.7071068286895752,
+                    "y": 0.0,
+                    "z": -0.7071068286895752
+                },
+                {
+                    "x": -0.7071068286895752,
+                    "y": 0.0,
+                    "z": -0.7071068286895752
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": 12.5,
+                    "y": 0.0,
+                    "z": -12.5
+                },
+                {
+                    "x": 12.5,
+                    "y": 2.5,
+                    "z": -12.5
+                },
+                {
+                    "x": 7.5,
+                    "y": 2.5,
+                    "z": -7.5
+                },
+                {
+                    "x": 7.5,
+                    "y": 0.0,
+                    "z": -7.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": 0.0,
+                    "y": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 2.8284270763397219,
+                    "y": 0.0
+                },
+                {
+                    "x": 2.8284270763397219,
+                    "y": -1.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3
+            ],
+            "Normals": [
+                {
+                    "x": 0.7071068286895752,
+                    "y": 0.0,
+                    "z": 0.7071068286895752
+                },
+                {
+                    "x": 0.7071068286895752,
+                    "y": 0.0,
+                    "z": 0.7071068286895752
+                },
+                {
+                    "x": 0.7071068286895752,
+                    "y": 0.0,
+                    "z": 0.7071068286895752
+                },
+                {
+                    "x": 0.7071068286895752,
+                    "y": 0.0,
+                    "z": 0.7071068286895752
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": 12.5,
+                    "y": 0.0,
+                    "z": -12.5
+                },
+                {
+                    "x": 12.5,
+                    "y": 2.5,
+                    "z": -12.5
+                },
+                {
+                    "x": -12.5,
+                    "y": 2.5,
+                    "z": -12.5
+                },
+                {
+                    "x": -12.5,
+                    "y": 0.0,
+                    "z": -12.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": 0.0,
+                    "y": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 10.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 10.0,
+                    "y": -1.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3
+            ],
+            "Normals": [
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 1.0
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": -12.5,
+                    "y": 0.0,
+                    "z": -12.5
+                },
+                {
+                    "x": -12.5,
+                    "y": 2.5,
+                    "z": -12.5
+                },
+                {
+                    "x": -12.5,
+                    "y": 2.5,
+                    "z": 12.5
+                },
+                {
+                    "x": -12.5,
+                    "y": 0.0,
+                    "z": 12.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": 0.0,
+                    "y": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 10.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 10.0,
+                    "y": -1.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3
+            ],
+            "Normals": [
+                {
+                    "x": 1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": 1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": -12.5,
+                    "y": 0.0,
+                    "z": 12.5
+                },
+                {
+                    "x": -12.5,
+                    "y": 2.5,
+                    "z": 12.5
+                },
+                {
+                    "x": 12.5,
+                    "y": 2.5,
+                    "z": 12.5
+                },
+                {
+                    "x": 12.5,
+                    "y": 0.0,
+                    "z": 12.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": 0.0,
+                    "y": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 10.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 10.0,
+                    "y": -1.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3
+            ],
+            "Normals": [
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -1.0
+                }
+            ]
+        },
+        {
+            "Vertices": [
+                {
+                    "x": 12.5,
+                    "y": 0.0,
+                    "z": 12.5
+                },
+                {
+                    "x": 12.5,
+                    "y": 2.5,
+                    "z": 12.5
+                },
+                {
+                    "x": 12.5,
+                    "y": 2.5,
+                    "z": -12.5
+                },
+                {
+                    "x": 12.5,
+                    "y": 0.0,
+                    "z": -12.5
+                }
+            ],
+            "Textures": [
+                {
+                    "x": 0.0,
+                    "y": -1.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 10.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 10.0,
+                    "y": -1.0
+                }
+            ],
+            "Triangles": [
+                0,
+                1,
+                2,
+                0,
+                2,
+                3
+            ],
+            "Normals": [
+                {
+                    "x": -1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": -1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": -1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                {
+                    "x": -1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            ]
+        }
+    ],
+    "PlayerPosition": [
+        {
+            "Position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": -9.1650390625
+            },
+            "Sector": 0
+        }
+    ]
+}
