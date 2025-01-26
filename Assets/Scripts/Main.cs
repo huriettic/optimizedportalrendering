@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
 
 public class Main : MonoBehaviour
 {
@@ -24,7 +23,11 @@ public class Main : MonoBehaviour
 
     public Camera Cam;
 
+    public GameObject DirectionalLight;
+
     public bool YouHaveTextures = true;
+
+    public bool EmissionFullBright = true;
 
     private Vector4[] PlanePos;
 
@@ -287,15 +290,27 @@ public class Main : MonoBehaviour
     {
         Shader shader = Resources.Load<Shader>("Clipping");
 
+        if (EmissionFullBright)
+        {
+            DirectionalLight.SetActive(false);
+        }
+
         for (int e = 0; e < Rendering.PolygonMeshes.Count; ++e)
         {
             if (Rendering.PolygonInformation[e].Render != -1)
             {
                 Material material = new Material(shader);
 
-                if (YouHaveTextures == true)
+                if (YouHaveTextures)
                 {
                     material.mainTexture = Resources.Load<Texture2D>(Rendering.PolygonInformation[e].MeshTextureCollection + "/" + Rendering.PolygonInformation[e].MeshTexture);
+                }
+
+                if (EmissionFullBright)
+                {
+                    Color hdrWhite = Color.white * 1.0f;
+                    material.SetColor("_Emission", hdrWhite);
+                    material.SetFloat("_Glossiness", 0.0f);
                 }
 
                 materials.Add(material);
@@ -540,7 +555,7 @@ public class Main : MonoBehaviour
             PlanePos[i] = new Vector4(APlanes[i].normal.x, APlanes[i].normal.y, APlanes[i].normal.z, APlanes[i].distance);
         }
 
-        rp.matProps.SetInt("_Int", APlanes.Count);
+        rp.matProps.SetInteger("_Int", APlanes.Count);
 
         rp.matProps.SetVectorArray("_Plane", PlanePos);
 

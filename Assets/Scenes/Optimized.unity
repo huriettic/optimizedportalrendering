@@ -395,13 +395,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4731ff20acdeeab4dac22e22b6ea2654, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Hyper Cube
+  Name: Tutorial
   speed: 6
   jumpHeight: 8
   gravity: 20
   Player: {fileID: 1217016801}
   Cam: {fileID: 963194227}
+  DirectionalLight: {fileID: 705507993}
   YouHaveTextures: 1
+  EmissionFullBright: 1
 --- !u!4 &1308996123
 Transform:
   m_ObjectHideFlags: 0
