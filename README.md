@@ -12,4 +12,8 @@ Tutorial is from the Bisqwit portal rendering tutorial video made with Weland.
 
 Hyper Cube is a room with a cube with hallways that overlap on the inside of the cube.
 
-Two Hallways is two hallways that overlap in an unnatural way. 
+Two Hallways is two hallways that overlap in an unnatural way.
+
+The name in the Main script can be changed to the Json text files name in the resources folder.
+
+Type in the name of the Json text file to change level.
