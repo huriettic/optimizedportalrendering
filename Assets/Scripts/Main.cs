@@ -41,6 +41,16 @@ public class Main : MonoBehaviour
 
     private GameObject CollisionObjects;
 
+    private List<Vector3> CombinedVertices = new List<Vector3>();
+
+    private List<int> CombinedTriangles = new List<int>();
+
+    private List<Vector2> CombinedTextures = new List<Vector2>();
+
+    private List<Vector3> CombinedNormals = new List<Vector3>();
+
+    public List<List<int>> ListsOfTriangles = new List<List<int>>();
+
     private List<RenderingData.Polyhedron> Sectors = new List<RenderingData.Polyhedron>();
 
     private List<RenderingData.Polyhedron> VisitedSector = new List<RenderingData.Polyhedron>();
@@ -51,9 +61,9 @@ public class Main : MonoBehaviour
 
     private List<float> m_Dists = new List<float>();
 
-    public List<List<Plane>> ListOfPlanes = new List<List<Plane>>();
+    public List<List<Plane>> ListsOfPlanes = new List<List<Plane>>();
 
-    public List<List<Vector3>> TempListOfVertices = new List<List<Vector3>>();
+    public List<List<Vector3>> ListsOfVertices = new List<List<Vector3>>();
 
     private List<Material> materials = new List<Material>();
 
@@ -61,11 +71,7 @@ public class Main : MonoBehaviour
 
     private List<Mesh> RenderMesh = new List<Mesh>();
 
-    private List<Mesh> TempMeshes = new List<Mesh>();
-
     private RenderingData Rendering;
-
-    private CombineInstance[] combine;
 
     private Matrix4x4 matrix;
 
@@ -141,7 +147,7 @@ public class Main : MonoBehaviour
 
         BuildCollsionSectors();
 
-        BuildMeshPolygons();
+        BuildMeshSectors();
 
         CreatePolygonPlane();
 
@@ -192,20 +198,20 @@ public class Main : MonoBehaviour
     {
         for (int i = 0; i < 26; i++)
         {
-            TempMeshes.Add(new Mesh());
+            ListsOfTriangles.Add(new List<int>());
         }
 
         for (int i = 0; i < Rendering.PolygonInformation.Count; i++)
         {
             if (Rendering.PolygonInformation[i].Portal != -1)
             {
-                ListOfPlanes.Add(new List<Plane>());
+                ListsOfPlanes.Add(new List<Plane>());
             }
         }
 
         for (int i = 0; i < 20; i++)
         {
-            TempListOfVertices.Add(new List<Vector3>());
+            ListsOfVertices.Add(new List<Vector3>());
         }
     }
 
@@ -286,7 +292,7 @@ public class Main : MonoBehaviour
         }
     }
 
-    public void BuildMeshPolygons()
+    public void BuildMeshSectors()
     {
         Shader shader = Resources.Load<Shader>("Clipping");
 
@@ -295,7 +301,7 @@ public class Main : MonoBehaviour
             DirectionalLight.SetActive(false);
         }
 
-        for (int e = 0; e < Rendering.PolygonMeshes.Count; ++e)
+        for (int e = 0; e < Rendering.PolygonInformation.Count; ++e)
         {
             if (Rendering.PolygonInformation[e].Render != -1)
             {
@@ -314,19 +320,56 @@ public class Main : MonoBehaviour
                 }
 
                 materials.Add(material);
-
-                Mesh rendermesh = new Mesh();
-
-                rendermesh.SetVertices(Rendering.PolygonMeshes[e].Vertices);
-
-                rendermesh.SetTriangles(Rendering.PolygonMeshes[e].Triangles, 0);
-
-                rendermesh.SetNormals(Rendering.PolygonMeshes[e].Normals);
-
-                rendermesh.SetUVs(0, Rendering.PolygonMeshes[e].Textures);
-
-                RenderMesh.Add(rendermesh);
             }
+
+        }
+
+        for (int e = 0; e < Rendering.Polyhedrons.Count; ++e)
+        {
+            CombinedVertices.Clear();
+
+            CombinedTextures.Clear();
+
+            CombinedNormals.Clear();
+
+            int h = 0;
+
+            for (int i = 0; i < Rendering.Polyhedrons[e].MeshRenders.Count; i++)
+            {
+                RenderingData.PolygonMesh polygonMesh = Rendering.PolygonMeshes[Rendering.Polyhedrons[e].MeshRenders[i]];
+
+                CombinedVertices.AddRange(polygonMesh.Vertices);
+
+                CombinedTextures.AddRange(polygonMesh.Textures);
+
+                CombinedNormals.AddRange(polygonMesh.Normals);
+
+                ListsOfTriangles[i].Clear();
+
+                for (int j = 0; j < polygonMesh.Triangles.Count; j++)
+                {
+                    ListsOfTriangles[i].Add(polygonMesh.Triangles[j] + h);
+                }
+
+                h += polygonMesh.Vertices.Count;
+            }
+
+            Mesh combinedmesh = new Mesh();
+
+            combinedmesh.subMeshCount = Rendering.Polyhedrons[e].MeshRenders.Count;
+
+            combinedmesh.SetVertices(CombinedVertices);
+
+            combinedmesh.SetUVs(0, CombinedTextures);
+
+            combinedmesh.SetNormals(CombinedNormals);
+
+            for (int k = 0; k < Rendering.Polyhedrons[e].MeshRenders.Count; k++)
+            {
+                combinedmesh.SetTriangles(ListsOfTriangles[k], k);
+            }
+
+            RenderMesh.Add(combinedmesh);
         }
     }
 
@@ -334,30 +377,33 @@ public class Main : MonoBehaviour
     {
         for (int i = 0; i < Rendering.Polyhedrons.Count; i++)
         {
-            combine = new CombineInstance[Rendering.Polyhedrons[i].MeshCollisions.Count];
+            CombinedVertices.Clear();
+
+            CombinedTriangles.Clear();
+
+            int h = 0;
 
             for (int e = 0; e < Rendering.Polyhedrons[i].MeshCollisions.Count; e++)
             {
-                Mesh tempmesh = TempMeshes[e];
-
-                tempmesh.Clear();
-
                 RenderingData.PolygonMesh polygonMesh = Rendering.PolygonMeshes[Rendering.Polyhedrons[i].MeshCollisions[e]];
 
-                tempmesh.SetVertices(polygonMesh.Vertices);
+                CombinedVertices.AddRange(polygonMesh.Vertices);
 
-                tempmesh.SetTriangles(polygonMesh.Triangles, 0);
+                for (int j = 0; j < polygonMesh.Triangles.Count; j++)
+                {
+                    CombinedTriangles.Add(polygonMesh.Triangles[j] + h);
+                }
 
-                combine[e].mesh = tempmesh;
-
-                combine[e].transform = matrix;
+                h += polygonMesh.Vertices.Count;
             }
 
-            Mesh collisionmesh = new Mesh();
+            Mesh combinedmesh = new Mesh();
 
-            CollisionMesh.Add(collisionmesh);
+            CollisionMesh.Add(combinedmesh);
 
-            collisionmesh.CombineMeshes(combine);
+            combinedmesh.SetVertices(CombinedVertices);
+
+            combinedmesh.SetTriangles(CombinedTriangles, 0);
 
             GameObject meshObject = new GameObject("Collision " + i);
 
@@ -365,7 +411,7 @@ public class Main : MonoBehaviour
 
             meshObject.AddComponent<MeshCollider>();
 
-            meshObject.GetComponent<MeshCollider>().sharedMesh = collisionmesh;
+            meshObject.GetComponent<MeshCollider>().sharedMesh = combinedmesh;
 
             meshObject.transform.SetParent(CollisionObjects.transform);
         }
@@ -457,11 +503,11 @@ public class Main : MonoBehaviour
     {
         for (int i = 0; i < aPlanes.Count; i++)
         {
-            TempListOfVertices[i].Clear();
+            ListsOfVertices[i].Clear();
 
-            TempListOfVertices[i].AddRange(invertices);
+            ListsOfVertices[i].AddRange(invertices);
             
-            invertices = ClippingPlane(TempListOfVertices[i], aPlanes[i]);
+            invertices = ClippingPlane(ListsOfVertices[i], aPlanes[i]);
         }
 
         return invertices;
@@ -559,20 +605,13 @@ public class Main : MonoBehaviour
 
         rp.matProps.SetVectorArray("_Plane", PlanePos);
 
+        Mesh r = RenderMesh[BSector.PolyhedronNumber];
+
         for (int i = 0; i < BSector.MeshRenders.Count; i++)
         {
-            Mesh r = RenderMesh[Rendering.PolygonInformation[BSector.MeshRenders[i]].MeshNumber];
-
-            float d = PointDistanceToPlane(Planes[BSector.MeshRenders[i]], CamPoint);
-
-            if (d < -0.1f)
-            {
-                continue;
-            }
-
             rp.material = materials[Rendering.PolygonInformation[BSector.MeshRenders[i]].MeshNumber];
 
-            Graphics.RenderMesh(rp, r, 0, matrix);
+            Graphics.RenderMesh(rp, r, i, matrix);
         }
 
         for (int i = 0; i < BSector.MeshPortals.Count; ++i)
@@ -595,11 +634,11 @@ public class Main : MonoBehaviour
 
             if (Sectors.Contains(Rendering.Polyhedrons[g.Portal]))
             {
-                ListOfPlanes[g.PortalNumber].Clear();
+                ListsOfPlanes[g.PortalNumber].Clear();
 
-                ListOfPlanes[g.PortalNumber].AddRange(APlanes);
+                ListsOfPlanes[g.PortalNumber].AddRange(APlanes);
 
-                GetPortals(ListOfPlanes[g.PortalNumber], Rendering.Polyhedrons[g.Portal]);
+                GetPortals(ListsOfPlanes[g.PortalNumber], Rendering.Polyhedrons[g.Portal]);
 
                 continue;
             }
@@ -611,11 +650,11 @@ public class Main : MonoBehaviour
                 if (verticesout.Count > 2)
                 {
 
-                    ListOfPlanes[g.PortalNumber].Clear();
+                    ListsOfPlanes[g.PortalNumber].Clear();
 
-                    CreateClippingPlanes(verticesout, ListOfPlanes[g.PortalNumber], CamPoint);
+                    CreateClippingPlanes(verticesout, ListsOfPlanes[g.PortalNumber], CamPoint);
 
-                    GetPortals(ListOfPlanes[g.PortalNumber], Rendering.Polyhedrons[g.Portal]);
+                    GetPortals(ListsOfPlanes[g.PortalNumber], Rendering.Polyhedrons[g.Portal]);
                 }
             }
         }
