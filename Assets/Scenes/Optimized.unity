@@ -376,6 +376,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1308996123}
   - component: {fileID: 1308996122}
+  - component: {fileID: 1308996124}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -397,7 +398,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Tutorial
   speed: 6
-  jumpHeight: 8
+  jumpHeight: 10
   gravity: 20
   Player: {fileID: 1217016801}
   Cam: {fileID: 963194227}
@@ -419,6 +420,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1308996124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1308996121}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbe36bd5ab5c73b41ac5d72b9d05b688, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Tutorial
+  speed: 6
+  jumpHeight: 10
+  gravity: 20
+  Player: {fileID: 1217016801}
+  Cam: {fileID: 963194227}
+  DirectionalLight: {fileID: 705507993}
+  YouHaveTextures: 1
+  EmissionFullBright: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
