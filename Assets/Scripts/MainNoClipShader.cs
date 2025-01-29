@@ -47,8 +47,6 @@ public class MainNoClipShader : MonoBehaviour
 
     private List<Vector2> CombinedTextures = new List<Vector2>();
 
-    private List<Vector3> CombinedNormals = new List<Vector3>();
-
     public List<List<int>> ListsOfTriangles = new List<List<int>>();
 
     private List<RenderingData.Polyhedron> Sectors = new List<RenderingData.Polyhedron>();
@@ -152,8 +150,6 @@ public class MainNoClipShader : MonoBehaviour
         CollisionObjects = new GameObject("CollisionMeshes");
 
         BuildCollsionSectors();
-
-        //BuildMeshSectors();
 
         CreatePolygonPlane();
 
@@ -323,11 +319,10 @@ public class MainNoClipShader : MonoBehaviour
     {
         for (int i = 0; i < Rendering.PolygonMeshes.Count; i++)
         {
-            Vector3 p1 = Rendering.PolygonMeshes[i].Vertices[0];
-            Vector3 p2 = Rendering.PolygonMeshes[i].Vertices[1];
-            Vector3 p3 = Rendering.PolygonMeshes[i].Vertices[2];
+            Vector3 p1 = Rendering.PolygonMeshes[i].Normals[0];
+            Vector3 p2 = Rendering.PolygonMeshes[i].Vertices[0];
 
-            Planes.Add(new Plane(p1, p2, p3));
+            Planes.Add(new Plane(p1, p2));
         }
     }
 
@@ -633,13 +628,6 @@ public class MainNoClipShader : MonoBehaviour
                 Physics.IgnoreCollision(Player, CollisionSectors[sector.PolyhedronNumber].GetComponent<MeshCollider>(), false);
             }
         }
-    }
-
-    public (List<Vector3>, List<Vector2>) Great(List<Vector3> invertices, List<Vector2> inTexcoords)
-    {
-
-
-        return (invertices, inTexcoords);
     }
 
     public void GetPortals(List<Plane> APlanes, RenderingData.Polyhedron BSector, Mesh MeshCombined)
