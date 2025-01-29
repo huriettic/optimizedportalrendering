@@ -47,7 +47,11 @@ public class MainNoClipShader : MonoBehaviour
 
     private List<Vector2> CombinedTextures = new List<Vector2>();
 
+    private List<Vector3> CombinedNormals = new List<Vector3>();
+
     public List<List<int>> ListsOfTriangles = new List<List<int>>();
+
+    public List<List<Vector3>> ListsOfNormals = new List<List<Vector3>>();
 
     private List<RenderingData.Polyhedron> Sectors = new List<RenderingData.Polyhedron>();
 
@@ -56,6 +60,8 @@ public class MainNoClipShader : MonoBehaviour
     private List<GameObject> CollisionSectors = new List<GameObject>();
 
     private List<Vector3> outvertices = new List<Vector3>();
+
+    private List<Vector3> outnormals = new List<Vector3>();
 
     private List<float> m_Dists = new List<float>();
 
@@ -217,6 +223,11 @@ public class MainNoClipShader : MonoBehaviour
             ListsOfTextures.Add(new List<Vector2>());
         }
 
+        for (int i = 0; i < 20; i++)
+        {
+            ListsOfNormals.Add(new List<Vector3>());
+        }
+
         for (int i = 0; i < Rendering.Polyhedrons.Count; i++)
         {
             MeshSectors.Add(new Mesh());
@@ -226,9 +237,9 @@ public class MainNoClipShader : MonoBehaviour
         {
             if (Rendering.PolygonInformation[i].Portal != -1)
             {
-                ListsOfMeshes.Add(new List<Mesh>() 
-                { 
-                  new Mesh(), new Mesh(), new Mesh(), new Mesh(), 
+                ListsOfMeshes.Add(new List<Mesh>()
+                {
+                  new Mesh(), new Mesh(), new Mesh(), new Mesh(),
                   new Mesh(), new Mesh(), new Mesh(), new Mesh(),
                   new Mesh(), new Mesh(), new Mesh(), new Mesh(),
                   new Mesh(), new Mesh(), new Mesh(), new Mesh(),
@@ -278,7 +289,7 @@ public class MainNoClipShader : MonoBehaviour
             if (Rendering.PlayerPosition[random].Sector == i)
             {
                 CurrentSector = Rendering.Polyhedrons[i];
-            
+
                 CurrentMesh = MeshSectors[i];
 
                 Player.transform.position = new Vector3(Rendering.PlayerPosition[random].Position.x, Rendering.PlayerPosition[random].Position.y + 1.10f, Rendering.PlayerPosition[random].Position.z);
@@ -473,32 +484,39 @@ public class MainNoClipShader : MonoBehaviour
         return outvertices;
     }
 
-    public List<Vector3> ClippingPlanes(List<Vector3> invertices,  List<Plane> aPlanes)
+    public List<Vector3> ClippingPlanes(List<Vector3> invertices, List<Plane> aPlanes)
     {
         for (int i = 0; i < aPlanes.Count; i++)
         {
             ListsOfVertices[i].Clear();
 
             ListsOfVertices[i].AddRange(invertices);
-            
+
             invertices = ClippingPlane(ListsOfVertices[i], aPlanes[i]);
         }
 
         return invertices;
     }
 
-    public (List<Vector3>, List<Vector2>) ClippingPlaneTex((List<Vector3>, List<Vector2>) verttex, Plane aPlane, float aEpsilon = 0.001f)
+    public (List<Vector3>, List<Vector2>, List<Vector3>) ClippingPlaneVertTexNorm((List<Vector3>, List<Vector2>, List<Vector3>) verttexnorm, Plane aPlane, float aEpsilon = 0.001f)
     {
         m_Dists.Clear();
         outvertices.Clear();
         outtex.Clear();
+        outnormals.Clear();
 
-        int count = verttex.Item1.Count;
+        int count = verttexnorm.Item1.Count;
         if (m_Dists.Capacity < count)
             m_Dists.Capacity = count;
+        if (outvertices.Capacity < count)
+            outvertices.Capacity = count;
+        if (outtex.Capacity < count)
+            outtex.Capacity = count;
+        if (outnormals.Capacity < count)
+            outnormals.Capacity = count;
         for (int i = 0; i < count; i++)
         {
-            Vector3 p = verttex.Item1[i];
+            Vector3 p = verttexnorm.Item1[i];
             m_Dists.Add(PointDistanceToPlane(aPlane, p));
         }
         for (int i = 0; i < count; i++)
@@ -506,21 +524,24 @@ public class MainNoClipShader : MonoBehaviour
             int j = (i + 1) % count;
             float d1 = m_Dists[i];
             float d2 = m_Dists[j];
-            Vector3 p1 = verttex.Item1[i];
-            Vector3 p2 = verttex.Item1[j];
-            Vector2 t1 = verttex.Item2[i];
-            Vector2 t2 = verttex.Item2[j];
+            Vector3 p1 = verttexnorm.Item1[i];
+            Vector3 p2 = verttexnorm.Item1[j];
+            Vector2 t1 = verttexnorm.Item2[i];
+            Vector2 t2 = verttexnorm.Item2[j];
+            Vector3 faceNormal = verttexnorm.Item3[0];
             bool split = d1 > aEpsilon;
             if (split)
             {
                 outvertices.Add(p1);
                 outtex.Add(t1);
+                outnormals.Add(faceNormal);
             }
             else if (d1 > -aEpsilon)
             {
                 // point on clipping plane so just keep it
                 outvertices.Add(p1);
                 outtex.Add(t1);
+                outnormals.Add(faceNormal);
                 continue;
             }
             // both points are on the same side of the plane
@@ -531,28 +552,32 @@ public class MainNoClipShader : MonoBehaviour
             float d = d1 / (d1 - d2);
             outvertices.Add(p1 + (p2 - p1) * d);
             outtex.Add(t1 + (t2 - t1) * d);
+            outnormals.Add(faceNormal);
         }
 
-        return (outvertices, outtex);
+        return (outvertices, outtex, outnormals);
     }
 
-
-    public (List<Vector3>, List<Vector2>) ClippingPlanesTex((List<Vector3>, List<Vector2>) verttex, List<Plane> aPlanes)
+    public (List<Vector3>, List<Vector2>, List<Vector3>) ClippingPlanesVertTexNorm((List<Vector3>, List<Vector2>, List<Vector3>) verttexnorm, List<Plane> aPlanes)
     {
         for (int i = 0; i < aPlanes.Count; i++)
         {
             ListsOfVertices[i].Clear();
 
-            ListsOfVertices[i].AddRange(verttex.Item1);
+            ListsOfVertices[i].AddRange(verttexnorm.Item1);
 
             ListsOfTextures[i].Clear();
 
-            ListsOfTextures[i].AddRange(verttex.Item2);
+            ListsOfTextures[i].AddRange(verttexnorm.Item2);
 
-            verttex = ClippingPlaneTex((ListsOfVertices[i], ListsOfTextures[i]), aPlanes[i]);
+            ListsOfNormals[i].Clear();
+
+            ListsOfNormals[i].AddRange(verttexnorm.Item3);
+
+            verttexnorm = ClippingPlaneVertTexNorm((ListsOfVertices[i], ListsOfTextures[i], ListsOfNormals[i]), aPlanes[i]);
         }
 
-        return verttex;
+        return verttexnorm;
     }
 
     public bool CheckRadius(RenderingData.Polyhedron asector, Vector3 campoint)
@@ -648,7 +673,9 @@ public class MainNoClipShader : MonoBehaviour
 
         CombinedVertices.Clear();
 
-        CombinedTextures.Clear();   
+        CombinedTextures.Clear();
+
+        CombinedNormals.Clear();
 
         int h = 0;
 
@@ -656,26 +683,31 @@ public class MainNoClipShader : MonoBehaviour
         {
             RenderingData.PolygonMesh r = Rendering.PolygonMeshes[BSector.MeshRenders[i]];
 
-            var outverttex = ClippingPlanesTex((r.Vertices, r.Textures), APlanes);
+            (List<Vector3>, List<Vector2>, List<Vector3>) outverttexnorm = ClippingPlanesVertTexNorm((r.Vertices, r.Textures, r.Normals), APlanes);
 
-            CombinedVertices.AddRange(outverttex.Item1);
+            CombinedVertices.AddRange(outverttexnorm.Item1);
 
-            CombinedTextures.AddRange(outverttex.Item2);
+            CombinedTextures.AddRange(outverttexnorm.Item2);
+
+            CombinedNormals.AddRange(outverttexnorm.Item3);
 
             ListsOfTriangles[i].Clear();
 
-            for (int e = 2; e < outverttex.Item1.Count; e++)
+            if (outverttexnorm.Item1.Count > 2)
             {
-                int a = 0;
-                int b = e - 1;
-                int c = e;
+                for (int e = 2; e < outverttexnorm.Item1.Count; e++)
+                {
+                    int a = 0;
+                    int b = e - 1;
+                    int c = e;
 
-                ListsOfTriangles[i].Add(a + h);
-                ListsOfTriangles[i].Add(b + h);
-                ListsOfTriangles[i].Add(c + h);
+                    ListsOfTriangles[i].Add(a + h);
+                    ListsOfTriangles[i].Add(b + h);
+                    ListsOfTriangles[i].Add(c + h);
+                }
             }
 
-            h += outverttex.Item1.Count;
+            h += outverttexnorm.Item1.Count;
         }
 
         MeshCombined.Clear();
@@ -691,7 +723,7 @@ public class MainNoClipShader : MonoBehaviour
             MeshCombined.SetTriangles(ListsOfTriangles[k], k);
         }
 
-        MeshCombined.RecalculateNormals();
+        MeshCombined.SetNormals(CombinedNormals);
 
         for (int i = 0; i < MeshCombined.subMeshCount; i++)
         {
@@ -748,3 +780,4 @@ public class MainNoClipShader : MonoBehaviour
         }
     }
 }
+
