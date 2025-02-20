@@ -375,7 +375,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1308996123}
-  - component: {fileID: 1308996122}
   - component: {fileID: 1308996124}
   m_Layer: 0
   m_Name: Manager
@@ -384,27 +383,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1308996122
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1308996121}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4731ff20acdeeab4dac22e22b6ea2654, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: Tutorial
-  speed: 6
-  jumpHeight: 10
-  gravity: 20
-  Player: {fileID: 1217016801}
-  Cam: {fileID: 963194227}
-  DirectionalLight: {fileID: 705507993}
-  YouHaveTextures: 1
-  EmissionFullBright: 1
 --- !u!4 &1308996123
 Transform:
   m_ObjectHideFlags: 0
@@ -427,7 +405,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1308996121}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dbe36bd5ab5c73b41ac5d72b9d05b688, type: 3}
   m_Name: 
@@ -436,9 +414,6 @@ MonoBehaviour:
   speed: 6
   jumpHeight: 10
   gravity: 20
-  Player: {fileID: 1217016801}
-  Cam: {fileID: 963194227}
-  DirectionalLight: {fileID: 705507993}
   YouHaveTextures: 1
   EmissionFullBright: 1
 --- !u!1660057539 &9223372036854775807

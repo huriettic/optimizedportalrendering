@@ -1,9 +1,9 @@
-Shader "Custom/Clipping"
+Shader "Custom/TexArray"
 {
     Properties
     {
         _Color ("Color", Color) = (1,1,1,1)
-        _MainTex ("Albedo (RGB)", 2D) = "white" {}
+        _MainTex ("Albedo (RGB)", 2DArray) = "white" {}
         _Glossiness ("Smoothness", Range(0,1)) = 0.5
         _Metallic ("Metallic", Range(0,1)) = 0.0
         [HDR]_Emission ("Emission", color) = (0,0,0)
@@ -13,26 +13,33 @@ Shader "Custom/Clipping"
         Tags { "RenderType"="Opaque" }
         LOD 200
 
+        Blend SrcAlpha OneMinusSrcAlpha
+
         CGPROGRAM
         // Physically based Standard lighting model, and enable shadows on all light types
-        #pragma surface surf Standard fullforwardshadows
+        #pragma surface surf Standard fullforwardshadows vertex:vert
 
         // Use shader model 3.0 target, to get nicer looking lighting
         #pragma target 3.0
-        
-        sampler2D _MainTex;
+
+        UNITY_DECLARE_TEX2DARRAY(_MainTex);
 
         struct Input
         {
             float2 uv_MainTex;
-            float3 worldPos;
+            float Index;
         };
+
+        void vert (inout appdata_full v, out Input o)
+        {
+            UNITY_INITIALIZE_OUTPUT(Input, o);
+            o.uv_MainTex = v.texcoord.xy;
+            o.Index = v.texcoord.z;
+        }
 
         half _Glossiness;
         half _Metallic;
         fixed4 _Color;
-        int _Int = 0;
-        float4 _Plane[20];
         half3 _Emission;
 
         // Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
@@ -44,24 +51,14 @@ Shader "Custom/Clipping"
 
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
-            for (int i = 0; i < _Int; i++)
-            {
-                float distance = dot(_Plane[i].xyz, IN.worldPos) + _Plane[i].w;
-                
-                if (distance < -0.1f)
-                {
-                    discard;
-                }
-            }
-            // Albedo comes from a texture tinted by color
-            fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
+            fixed4 c = UNITY_SAMPLE_TEX2DARRAY(_MainTex, float3(IN.uv_MainTex, IN.Index)) * _Color;
             o.Albedo = c.rgb;
-            // Metallic and smoothness come from slider variables
             o.Metallic = _Metallic;
             o.Smoothness = _Glossiness;
             o.Alpha = c.a;
-            o.Emission = _Emission * tex2D(_MainTex, IN.uv_MainTex);
+            o.Emission = UNITY_SAMPLE_TEX2DARRAY(_MainTex, float3(IN.uv_MainTex, IN.Index)) * _Emission;
         }
+
         ENDCG
     }
     FallBack "Diffuse"
