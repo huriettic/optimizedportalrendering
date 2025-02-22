@@ -414,8 +414,6 @@ MonoBehaviour:
   speed: 6
   jumpHeight: 10
   gravity: 20
-  YouHaveTextures: 1
-  EmissionFullBright: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

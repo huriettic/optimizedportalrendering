@@ -1,4 +1,4 @@
-Shader "Custom/TexArray"
+Shader "Custom/TexArrayT"
 {
     Properties
     {
@@ -6,9 +6,11 @@ Shader "Custom/TexArray"
     }
     SubShader
     {
-        Tags { "Queue" = "Geometry" "RenderType" = "Opaque" }
+        Tags { "Queue" = "Transparent" "RenderType" = "Transparent" }
 
-        Pass   
+        Blend SrcAlpha OneMinusSrcAlpha
+
+        Pass
         {
             CGPROGRAM
             #pragma vertex vert

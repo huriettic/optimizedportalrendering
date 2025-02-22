@@ -9,7 +9,13 @@ public class ManagerMain : MonoBehaviour
 
     private int h;
 
-    private Mesh mesh;
+    private int y;
+
+    private int l;
+
+    private Mesh opaquemesh;
+
+    private Mesh transparentmesh;
 
     private float lerpX;
     private float lerpY;
@@ -23,10 +29,6 @@ public class ManagerMain : MonoBehaviour
     public float speed = 6f;
     public float jumpHeight = 10f;
     public float gravity = 20f;
-
-    public bool YouHaveTextures = true;
-
-    public bool EmissionFullBright = true;
 
     private Vector3 moveDirection = Vector3.zero;
 
@@ -52,9 +54,19 @@ public class ManagerMain : MonoBehaviour
 
     private List<int> CombinedTriangles = new List<int>();
 
-    private List<Vector3> CombinedTextures = new List<Vector3>();
+    private List<Vector3> OpaqueVertices = new List<Vector3>();
 
-    private List<Vector3> CombinedNormals = new List<Vector3>();
+    private List<int> OpaqueTriangles = new List<int>();
+
+    private List<Vector3> OpaqueTextures = new List<Vector3>();
+
+    private List<Vector3> OpaqueNormals = new List<Vector3>();
+
+    private List<Vector3> TransparentVertices = new List<Vector3>();
+
+    private List<Vector3> TransparentTextures = new List<Vector3>();
+
+    private List<Vector3> TransparentNormals = new List<Vector3>();
 
     private List<RenderingData.Polyhedron> Sectors = new List<RenderingData.Polyhedron>();
 
@@ -76,7 +88,11 @@ public class ManagerMain : MonoBehaviour
 
     private List<List<Vector3>> ListsOfNormals = new List<List<Vector3>>();
 
-    private Material material;
+    private List<List<int>> ListsOfTriangles = new List<List<int>>();
+
+    private Material opaquematerial;
+
+    private Material transparentmaterial;
 
     private List<Mesh> CollisionMesh = new List<Mesh>();
 
@@ -102,6 +118,7 @@ public class ManagerMain : MonoBehaviour
             public int Portal;
             public int Render;
             public int Collision;
+            public int Transparent;
             public int CollisionNumber;
             public int PortalNumber;
             public int MeshNumber;
@@ -132,6 +149,8 @@ public class ManagerMain : MonoBehaviour
 
             public List<int> MeshCollisions = new List<int>();
 
+            public List<int> MeshTransparent = new List<int>();
+
             public int PolyhedronNumber;
         }
 
@@ -161,7 +180,9 @@ public class ManagerMain : MonoBehaviour
 
         CreateMaterial();
 
-        mesh = new Mesh();
+        opaquemesh = new Mesh();
+
+        transparentmesh = new Mesh();
 
         matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, Vector3.one);
 
@@ -197,15 +218,30 @@ public class ManagerMain : MonoBehaviour
 
         VisitedSector.Clear();
 
+        OpaqueVertices.Clear();
+
+        OpaqueTextures.Clear();
+
+        OpaqueTriangles.Clear();
+
+        OpaqueNormals.Clear();
+
+        TransparentVertices.Clear();
+
+        TransparentTextures.Clear();
+
+        TransparentNormals.Clear();
+
+        for (int i = 0; i < l; i++)
+        {
+            ListsOfTriangles[i].Clear();
+        }
+
         h = 0;
 
-        CombinedVertices.Clear();
+        y = 0;
 
-        CombinedTextures.Clear();
-
-        CombinedTriangles.Clear();
-
-        CombinedNormals.Clear();
+        l = 0;
 
         GetPortals(CamPlanes, CurrentSector);
 
@@ -232,6 +268,11 @@ public class ManagerMain : MonoBehaviour
             }
         }
 
+        for (int i = 0; i < 64; i++)
+        {
+            ListsOfTriangles.Add(new List<int>());
+        }
+
         for (int i = 0; i < 20; i++)
         {
             ListsOfVertices.Add(new List<Vector3>());
@@ -252,20 +293,16 @@ public class ManagerMain : MonoBehaviour
     {
         Shader shader = Resources.Load<Shader>("TexArray");
 
-        material = new Material(shader);
+        opaquematerial = new Material(shader);
 
-        if (EmissionFullBright)
-        {
-            DirectionalLight.SetActive(false);
-            Color hdrWhite = Color.white * 1.0f;
-            material.SetColor("_Emission", hdrWhite);
-            material.SetFloat("_Glossiness", 0.0f);
-        }
+        Shader shaderT = Resources.Load<Shader>("TexArrayT");
 
-        if (YouHaveTextures)
-        {
-            material.mainTexture = Resources.Load<Texture2DArray>("Textures");
-        }
+        transparentmaterial = new Material(shaderT);
+
+        DirectionalLight.SetActive(false);
+
+        opaquematerial.mainTexture = Resources.Load<Texture2DArray>("Textures");
+        transparentmaterial.mainTexture = Resources.Load<Texture2DArray>("Textures");
     }
 
     public void Playerstart()
@@ -645,19 +682,41 @@ public class ManagerMain : MonoBehaviour
 
     public void Renderit()
     {
-        mesh.Clear();
+        opaquemesh.Clear();
 
-        mesh.SetVertices(CombinedVertices);
+        opaquemesh.SetVertices(OpaqueVertices);
 
-        mesh.SetUVs(0, CombinedTextures);
+        opaquemesh.SetUVs(0, OpaqueTextures);
 
-        mesh.SetTriangles(CombinedTriangles, 0);
+        opaquemesh.SetTriangles(OpaqueTriangles, 0);
 
-        mesh.SetNormals(CombinedNormals);
+        opaquemesh.SetNormals(OpaqueNormals);
 
-        rp.material = material;
+        rp.material = opaquematerial;
 
-        Graphics.RenderMesh(rp, mesh, 0, matrix);
+        Graphics.RenderMesh(rp, opaquemesh, 0, matrix);
+
+        transparentmesh.Clear();
+
+        transparentmesh.subMeshCount = l;
+
+        transparentmesh.SetVertices(TransparentVertices);
+
+        transparentmesh.SetUVs(0, TransparentTextures);
+
+        for (int i = 0; i < l; i++)
+        {
+            transparentmesh.SetTriangles(ListsOfTriangles[i], i);
+        }
+
+        transparentmesh.SetNormals(TransparentNormals);
+
+        rp.material = transparentmaterial;
+
+        for (int i = l - 1; i >= 0; i--)
+        {
+            Graphics.RenderMesh(rp, transparentmesh, i, matrix);
+        }
     }
 
     public void GetPortals(List<Plane> APlanes, RenderingData.Polyhedron BSector)
@@ -666,35 +725,72 @@ public class ManagerMain : MonoBehaviour
 
         for (int i = 0; i < BSector.MeshRenders.Count; i++)
         {
+            float d = PointDistanceToPlane(Planes[BSector.MeshRenders[i]], CamPoint);
+
+            if (d < -0.1f)
+            {
+                continue;
+            }
+
             RenderingData.PolygonMesh r = Rendering.PolygonMeshes[BSector.MeshRenders[i]];
 
             (List<Vector3>, List<Vector3>, List<Vector3>) outverttexnorm = ClippingPlanesVertTexNorm((r.Vertices, r.Textures, r.Normals), APlanes);
 
-            CombinedVertices.AddRange(outverttexnorm.Item1);
+            OpaqueVertices.AddRange(outverttexnorm.Item1);
 
-            CombinedTextures.AddRange(outverttexnorm.Item2);
+            OpaqueTextures.AddRange(outverttexnorm.Item2);
 
-            CombinedNormals.AddRange(outverttexnorm.Item3);
+            OpaqueNormals.AddRange(outverttexnorm.Item3);
 
             if (outverttexnorm.Item1.Count > 2)
             {
                 for (int e = 2; e < outverttexnorm.Item1.Count; e++)
                 {
-                    CombinedTriangles.Add(0 + h);
-                    CombinedTriangles.Add(e - 1 + h);
-                    CombinedTriangles.Add(e + h);
+                    OpaqueTriangles.Add(0 + h);
+                    OpaqueTriangles.Add(e - 1 + h);
+                    OpaqueTriangles.Add(e + h);
                 }
             }
 
             h += outverttexnorm.Item1.Count;
         }
 
+        for (int i = 0; i < BSector.MeshTransparent.Count; i++)
+        {
+            float d = PointDistanceToPlane(Planes[BSector.MeshTransparent[i]], CamPoint);
+
+            if (d < -0.1f)
+            {
+                continue;
+            }
+
+            RenderingData.PolygonMesh t = Rendering.PolygonMeshes[BSector.MeshTransparent[i]];
+
+            (List<Vector3>, List<Vector3>, List<Vector3>) outverttexnormt = ClippingPlanesVertTexNorm((t.Vertices, t.Textures, t.Normals), APlanes);
+
+            TransparentVertices.AddRange(outverttexnormt.Item1);
+
+            TransparentTextures.AddRange(outverttexnormt.Item2);
+
+            TransparentNormals.AddRange(outverttexnormt.Item3);
+
+            if (outverttexnormt.Item1.Count > 2)
+            {
+                for (int e = 2; e < outverttexnormt.Item1.Count; e++)
+                {
+                    ListsOfTriangles[l].Add(0 + y);
+                    ListsOfTriangles[l].Add(e - 1 + y);
+                    ListsOfTriangles[l].Add(e + y);
+                }
+            }
+
+            l++;
+
+            y += outverttexnormt.Item1.Count;
+        }
+
         for (int i = 0; i < BSector.MeshPortals.Count; i++)
         {
-            RenderingData.PolygonData g = Rendering.PolygonInformation[BSector.MeshPortals[i]];
-
-            RenderingData.PolygonMesh v = Rendering.PolygonMeshes[BSector.MeshPortals[i]];
-
             float d = PointDistanceToPlane(Planes[BSector.MeshPortals[i]], CamPoint);
 
             if (d < -0.1f)
@@ -706,6 +802,10 @@ public class ManagerMain : MonoBehaviour
             {
                 continue;
             }
+
+            RenderingData.PolygonData g = Rendering.PolygonInformation[BSector.MeshPortals[i]];
+
+            RenderingData.PolygonMesh v = Rendering.PolygonMeshes[BSector.MeshPortals[i]];
 
             if (Sectors.Contains(Rendering.Polyhedrons[g.Portal]))
             {
