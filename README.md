@@ -17,3 +17,16 @@ Two Hallways is two hallways that overlap in an unnatural way.
 The name in the Main script can be changed to the Json text files name in the resources folder.
 
 Type in the name of the Json text file to change level.
+
+## Third-Party Code
+
+This project uses the following third-party code:
+
+### VisPortals by Bunny83
+
+- License: MIT
+- Copyright: © 2016 Bunny83
+- Source: [https://github.com/Bunny83/UnityWebExamples/tree/master/VisPortals](https://github.com/Bunny83/UnityWebExamples/tree/master/VisPortals)
+
+Assets\VisPortal\VisAreaManager.cs
+Assets\VisPortal\CameraExtension.cs
