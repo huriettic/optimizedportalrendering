@@ -754,6 +754,11 @@ public class ManagerMain : MonoBehaviour
                 continue;
             }
 
+            if (d <= 0)
+            {
+                continue;
+            }
+
             RenderingData.PolygonMesh r = Rendering.PolygonMeshes[BSector.MeshRenders[i]];
 
             (List<Vector3>, List<Vector4>, List<Vector3>) outverttexnorm = ClippingPlanesVertTexNorm((r.Vertices, r.Textures, r.Normals), APlanes);
@@ -782,6 +787,11 @@ public class ManagerMain : MonoBehaviour
             float d = PointDistanceToPlane(Planes[BSector.MeshTransparent[i]], CamPoint);
 
             if (d < -0.1f)
+            {
+                continue;
+            }
+
+            if (d <= 0)
             {
                 continue;
             }
