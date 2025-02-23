@@ -30,3 +30,8 @@ This project uses the following third-party code:
 
 Assets\VisPortal\VisAreaManager.cs
 Assets\VisPortal\CameraExtension.cs
+
+### Weland by treellama Gregory Smith 
+
+- License: GPL-2.0 license
+- Source: [https://github.com/treellama/weland](https://github.com/treellama/weland)
