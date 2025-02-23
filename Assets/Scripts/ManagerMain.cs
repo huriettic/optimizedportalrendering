@@ -34,6 +34,8 @@ public class ManagerMain : MonoBehaviour
 
     private CharacterController Player;
 
+    private Color[] LightColor;
+
     private Camera Cam;
 
     private GameObject DirectionalLight;
@@ -48,7 +50,7 @@ public class ManagerMain : MonoBehaviour
 
     private GameObject CollisionObjects;
 
-    private List<Vector3> outtex = new List<Vector3>();
+    private List<Vector4> outtex = new List<Vector4>();
 
     private List<Vector3> CombinedVertices = new List<Vector3>();
 
@@ -58,13 +60,13 @@ public class ManagerMain : MonoBehaviour
 
     private List<int> OpaqueTriangles = new List<int>();
 
-    private List<Vector3> OpaqueTextures = new List<Vector3>();
+    private List<Vector4> OpaqueTextures = new List<Vector4>();
 
     private List<Vector3> OpaqueNormals = new List<Vector3>();
 
     private List<Vector3> TransparentVertices = new List<Vector3>();
 
-    private List<Vector3> TransparentTextures = new List<Vector3>();
+    private List<Vector4> TransparentTextures = new List<Vector4>();
 
     private List<Vector3> TransparentNormals = new List<Vector3>();
 
@@ -84,7 +86,7 @@ public class ManagerMain : MonoBehaviour
 
     private List<List<Vector3>> ListsOfVertices = new List<List<Vector3>>();
 
-    private List<List<Vector3>> ListsOfTextures = new List<List<Vector3>>();
+    private List<List<Vector4>> ListsOfTextures = new List<List<Vector4>>();
 
     private List<List<Vector3>> ListsOfNormals = new List<List<Vector3>>();
 
@@ -111,6 +113,8 @@ public class ManagerMain : MonoBehaviour
 
         public List<PlayerStarts> PlayerPosition = new List<PlayerStarts>();
 
+        public List<PolygonLight> LightColor = new List<PolygonLight>();
+
         [System.Serializable]
         public class PolygonData
         {
@@ -131,7 +135,7 @@ public class ManagerMain : MonoBehaviour
         {
             public List<Vector3> Vertices = new List<Vector3>();
 
-            public List<Vector3> Textures = new List<Vector3>();
+            public List<Vector4> Textures = new List<Vector4>();
 
             public List<int> Triangles = new List<int>();
 
@@ -160,6 +164,13 @@ public class ManagerMain : MonoBehaviour
             public Vector3 Position;
             public int Sector;
         }
+
+        [System.Serializable]
+        public class PolygonLight
+        {
+            public Color MeshLight;
+        }
+
     }
 
     void Awake()
@@ -177,6 +188,8 @@ public class ManagerMain : MonoBehaviour
         Load();
 
         MakeLists();
+
+        LightColor = new Color[Rendering.LightColor.Count];
 
         CreateMaterial();
 
@@ -280,7 +293,7 @@ public class ManagerMain : MonoBehaviour
 
         for (int i = 0; i < 20; i++)
         {
-            ListsOfTextures.Add(new List<Vector3>());
+            ListsOfTextures.Add(new List<Vector4>());
         }
 
         for (int i = 0; i < 20; i++)
@@ -295,9 +308,18 @@ public class ManagerMain : MonoBehaviour
 
         opaquematerial = new Material(shader);
 
+        for (int i = 0; i < Rendering.LightColor.Count; i++)
+        {
+            LightColor[i] = new Color(Rendering.LightColor[i].MeshLight.r, Rendering.LightColor[i].MeshLight.g, Rendering.LightColor[i].MeshLight.b, 1.0f);
+        }
+
+        opaquematerial.SetColorArray("_ColorArray", LightColor);
+
         Shader shaderT = Resources.Load<Shader>("TexArrayT");
 
         transparentmaterial = new Material(shaderT);
+
+        transparentmaterial.SetColorArray("_ColorArray", LightColor);
 
         DirectionalLight.SetActive(false);
 
@@ -521,7 +543,7 @@ public class ManagerMain : MonoBehaviour
         return invertices;
     }
 
-    public (List<Vector3>, List<Vector3>, List<Vector3>) ClippingPlaneVertTexNorm((List<Vector3>, List<Vector3>, List<Vector3>) verttexnorm, Plane aPlane, float aEpsilon = 0.001f)
+    public (List<Vector3>, List<Vector4>, List<Vector3>) ClippingPlaneVertTexNorm((List<Vector3>, List<Vector4>, List<Vector3>) verttexnorm, Plane aPlane, float aEpsilon = 0.001f)
     {
         m_Dists.Clear();
         outvertices.Clear();
@@ -549,8 +571,8 @@ public class ManagerMain : MonoBehaviour
             float d2 = m_Dists[j];
             Vector3 p1 = verttexnorm.Item1[i];
             Vector3 p2 = verttexnorm.Item1[j];
-            Vector3 t1 = verttexnorm.Item2[i];
-            Vector3 t2 = verttexnorm.Item2[j];
+            Vector4 t1 = verttexnorm.Item2[i];
+            Vector4 t2 = verttexnorm.Item2[j];
             Vector3 faceNormal = verttexnorm.Item3[0];
             bool split = d1 > aEpsilon;
             if (split)
@@ -576,14 +598,14 @@ public class ManagerMain : MonoBehaviour
             outvertices.Add(p1 + (p2 - p1) * d);
             float x1 = t1.x + (t2.x - t1.x) * d;
             float y1 = t1.y + (t2.y - t1.y) * d;
-            outtex.Add(new Vector3(x1, y1, t1.z));
+            outtex.Add(new Vector4(x1, y1, t1.z, t1.w));
             outnormals.Add(faceNormal);
         }
 
         return (outvertices, outtex, outnormals);
     }
 
-    public (List<Vector3>, List<Vector3>, List<Vector3>) ClippingPlanesVertTexNorm((List<Vector3>, List<Vector3>, List<Vector3>) verttexnorm, List<Plane> aPlanes)
+    public (List<Vector3>, List<Vector4>, List<Vector3>) ClippingPlanesVertTexNorm((List<Vector3>, List<Vector4>, List<Vector3>) verttexnorm, List<Plane> aPlanes)
     {
         for (int i = 0; i < aPlanes.Count; i++)
         {
@@ -734,7 +756,7 @@ public class ManagerMain : MonoBehaviour
 
             RenderingData.PolygonMesh r = Rendering.PolygonMeshes[BSector.MeshRenders[i]];
 
-            (List<Vector3>, List<Vector3>, List<Vector3>) outverttexnorm = ClippingPlanesVertTexNorm((r.Vertices, r.Textures, r.Normals), APlanes);
+            (List<Vector3>, List<Vector4>, List<Vector3>) outverttexnorm = ClippingPlanesVertTexNorm((r.Vertices, r.Textures, r.Normals), APlanes);
 
             OpaqueVertices.AddRange(outverttexnorm.Item1);
 
@@ -766,7 +788,7 @@ public class ManagerMain : MonoBehaviour
 
             RenderingData.PolygonMesh t = Rendering.PolygonMeshes[BSector.MeshTransparent[i]];
 
-            (List<Vector3>, List<Vector3>, List<Vector3>) outverttexnormt = ClippingPlanesVertTexNorm((t.Vertices, t.Textures, t.Normals), APlanes);
+            (List<Vector3>, List<Vector4>, List<Vector3>) outverttexnormt = ClippingPlanesVertTexNorm((t.Vertices, t.Textures, t.Normals), APlanes);
 
             TransparentVertices.AddRange(outverttexnormt.Item1);
 
