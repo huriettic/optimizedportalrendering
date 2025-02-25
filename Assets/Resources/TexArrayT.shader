@@ -28,6 +28,7 @@ Shader "Custom/TexArrayT"
                 float4 pos : SV_POSITION;
                 float2 uv : TEXCOORD0;
                 float index : TEXCOORD1;
+                float3 worldPos : TEXCOORD2;
                 float4 color : COLOR;
             };
 
@@ -41,12 +42,17 @@ Shader "Custom/TexArrayT"
                 o.uv = v.uv.xy;
                 o.index = v.uv.z;
                 o.color = _ColorArray[v.uv.w];
+                o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
                 return o;
             }
 
             fixed4 frag(v2f i) : SV_Target
             {
-                return UNITY_SAMPLE_TEX2DARRAY(_MainTex, float3(i.uv, i.index)) * i.color;
+                float distance = length(i.worldPos - _WorldSpaceCameraPos);
+                float brightnessFactor = lerp(1, 0, clamp(distance / 10.0f, 0, 1));
+                float4 brightness = float4(clamp(i.color.rgb + brightnessFactor, 0, 1), i.color.a);
+                float4 Col = brightness * UNITY_SAMPLE_TEX2DARRAY(_MainTex, float3(i.uv, i.index));
+                return Col;
             }
             ENDCG
         }
