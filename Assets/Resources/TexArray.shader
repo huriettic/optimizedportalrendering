@@ -47,7 +47,7 @@ Shader "Custom/TexArray"
             fixed4 frag(v2f i) : SV_Target
             {  
                 float distance = length(i.worldPos - _WorldSpaceCameraPos);
-                float brightnessFactor = lerp(1, 0, clamp(distance / 10.0f, 0, 1));
+                float brightnessFactor = lerp(0.3f, 0, clamp(distance / 10.0f, 0, 1));
                 float4 brightness = float4(clamp(i.color.rgb + brightnessFactor, 0, 1), i.color.a);
                 float4 Col = brightness * UNITY_SAMPLE_TEX2DARRAY(_MainTex, float3(i.uv, i.index));
                 return Col;
