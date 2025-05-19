@@ -70,7 +70,7 @@ public class ManagerMain : MonoBehaviour
 
     private List<Vector3> TransparentNormals = new List<Vector3>();
 
-    public List<int> TransparentTriangles = new List<int>();
+    private List<int> TransparentTriangles = new List<int>();
 
     private List<RenderingData.Polyhedron> Sectors = new List<RenderingData.Polyhedron>();
 
@@ -98,9 +98,9 @@ public class ManagerMain : MonoBehaviour
 
     private List<Mesh> CollisionMesh = new List<Mesh>();
 
-    private RenderingData Rendering;
-
     private Matrix4x4 matrix;
+
+    private RenderingData Rendering;
 
     [System.Serializable]
     public class RenderingData
