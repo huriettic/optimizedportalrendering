@@ -286,17 +286,17 @@ public class ManagerMain : MonoBehaviour
             ListsOfTriangles.Add(new List<int>());
         }
 
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 2; i++)
         {
             ListsOfVertices.Add(new List<Vector3>());
         }
 
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 2; i++)
         {
             ListsOfTextures.Add(new List<Vector4>());
         }
 
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 2; i++)
         {
             ListsOfNormals.Add(new List<Vector3>());
         }
@@ -533,11 +533,22 @@ public class ManagerMain : MonoBehaviour
     {
         for (int i = 0; i < aPlanes.Count; i++)
         {
-            ListsOfVertices[i].Clear();
+            if (i % 2 == 0)
+            {
+                ListsOfVertices[0].Clear();
 
-            ListsOfVertices[i].AddRange(invertices);
+                ListsOfVertices[0].AddRange(invertices);
 
-            invertices = ClippingPlane(ListsOfVertices[i], aPlanes[i]);
+                invertices = ClippingPlane(ListsOfVertices[0], aPlanes[i]);
+            }
+            else
+            {
+                ListsOfVertices[1].Clear();
+
+                ListsOfVertices[1].AddRange(invertices);
+
+                invertices = ClippingPlane(ListsOfVertices[1], aPlanes[i]);
+            }  
         }
 
         return invertices;
@@ -609,19 +620,38 @@ public class ManagerMain : MonoBehaviour
     {
         for (int i = 0; i < aPlanes.Count; i++)
         {
-            ListsOfVertices[i].Clear();
+            if (i % 2 == 0)
+            {
+                ListsOfVertices[0].Clear();
 
-            ListsOfVertices[i].AddRange(verttexnorm.Item1);
+                ListsOfVertices[0].AddRange(verttexnorm.Item1);
 
-            ListsOfTextures[i].Clear();
+                ListsOfTextures[0].Clear();
 
-            ListsOfTextures[i].AddRange(verttexnorm.Item2);
+                ListsOfTextures[0].AddRange(verttexnorm.Item2);
 
-            ListsOfNormals[i].Clear();
+                ListsOfNormals[0].Clear();
 
-            ListsOfNormals[i].AddRange(verttexnorm.Item3);
+                ListsOfNormals[0].AddRange(verttexnorm.Item3);
 
-            verttexnorm = ClippingPlaneVertTexNorm((ListsOfVertices[i], ListsOfTextures[i], ListsOfNormals[i]), aPlanes[i]);
+                verttexnorm = ClippingPlaneVertTexNorm((ListsOfVertices[0], ListsOfTextures[0], ListsOfNormals[0]), aPlanes[i]);
+            }
+            else
+            {
+                ListsOfVertices[1].Clear();
+
+                ListsOfVertices[1].AddRange(verttexnorm.Item1);
+
+                ListsOfTextures[1].Clear();
+
+                ListsOfTextures[1].AddRange(verttexnorm.Item2);
+
+                ListsOfNormals[1].Clear();
+
+                ListsOfNormals[1].AddRange(verttexnorm.Item3);
+
+                verttexnorm = ClippingPlaneVertTexNorm((ListsOfVertices[1], ListsOfTextures[1], ListsOfNormals[1]), aPlanes[i]);
+            }  
         }
 
         return verttexnorm;
