@@ -11,8 +11,6 @@ public class ManagerMain : MonoBehaviour
 
     private int y;
 
-    private int l;
-
     private Mesh opaquemesh;
 
     private Mesh transparentmesh;
@@ -35,6 +33,8 @@ public class ManagerMain : MonoBehaviour
     private CharacterController Player;
 
     private Color[] LightColor;
+
+    private int[] OneTriangle;
 
     private Camera Cam;
 
@@ -70,6 +70,8 @@ public class ManagerMain : MonoBehaviour
 
     private List<Vector3> TransparentNormals = new List<Vector3>();
 
+    public List<int> TransparentTriangles = new List<int>();
+
     private List<RenderingData.Polyhedron> Sectors = new List<RenderingData.Polyhedron>();
 
     private List<RenderingData.Polyhedron> VisitedSector = new List<RenderingData.Polyhedron>();
@@ -89,8 +91,6 @@ public class ManagerMain : MonoBehaviour
     private List<List<Vector4>> ListsOfTextures = new List<List<Vector4>>();
 
     private List<List<Vector3>> ListsOfNormals = new List<List<Vector3>>();
-
-    private List<List<int>> ListsOfTriangles = new List<List<int>>();
 
     private Material opaquematerial;
 
@@ -191,6 +191,8 @@ public class ManagerMain : MonoBehaviour
 
         LightColor = new Color[Rendering.LightColor.Count];
 
+        OneTriangle = new int[3];
+
         CreateMaterial();
 
         opaquemesh = new Mesh();
@@ -245,16 +247,11 @@ public class ManagerMain : MonoBehaviour
 
         TransparentNormals.Clear();
 
-        for (int i = 0; i < l; i++)
-        {
-            ListsOfTriangles[i].Clear();
-        }
+        TransparentTriangles.Clear();
 
         h = 0;
 
         y = 0;
-
-        l = 0;
 
         GetPortals(CamPlanes, CurrentSector);
 
@@ -279,11 +276,6 @@ public class ManagerMain : MonoBehaviour
             {
                 ListsOfPlanes.Add(new List<Plane>());
             }
-        }
-
-        for (int i = 0; i < 64; i++)
-        {
-            ListsOfTriangles.Add(new List<int>());
         }
 
         for (int i = 0; i < 2; i++)
@@ -750,24 +742,28 @@ public class ManagerMain : MonoBehaviour
 
         transparentmesh.Clear();
 
-        transparentmesh.subMeshCount = l;
+        transparentmesh.subMeshCount = TransparentTriangles.Count / 3;
 
         transparentmesh.SetVertices(TransparentVertices);
 
         transparentmesh.SetUVs(0, TransparentTextures);
 
-        for (int i = 0; i < l; i++)
+        for (int i = 0; i < TransparentTriangles.Count; i += 3)
         {
-            transparentmesh.SetTriangles(ListsOfTriangles[i], i);
+            OneTriangle[0] = TransparentTriangles[i];
+            OneTriangle[1] = TransparentTriangles[i + 1];
+            OneTriangle[2] = TransparentTriangles[i + 2];
+
+            transparentmesh.SetTriangles(OneTriangle, i / 3);
         }
 
         transparentmesh.SetNormals(TransparentNormals);
 
         rp.material = transparentmaterial;
 
-        for (int i = l - 1; i >= 0; i--)
+        for (int i = TransparentTriangles.Count - 1; i >= 0; i -= 3)
         {
-            Graphics.RenderMesh(rp, transparentmesh, i, matrix);
+            Graphics.RenderMesh(rp, transparentmesh, i / 3, matrix);
         }
     }
 
@@ -840,13 +836,11 @@ public class ManagerMain : MonoBehaviour
             {
                 for (int e = 2; e < outverttexnormt.Item1.Count; e++)
                 {
-                    ListsOfTriangles[l].Add(0 + y);
-                    ListsOfTriangles[l].Add(e - 1 + y);
-                    ListsOfTriangles[l].Add(e + y);
+                    TransparentTriangles.Add(0 + y);
+                    TransparentTriangles.Add(e - 1 + y);
+                    TransparentTriangles.Add(e + y);
                 }
             }
-
-            l++;
 
             y += outverttexnormt.Item1.Count;
         }
