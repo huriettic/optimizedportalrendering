@@ -98,9 +98,9 @@ public class ManagerMain : MonoBehaviour
 
     private List<Mesh> CollisionMesh = new List<Mesh>();
 
-    private Matrix4x4 matrix;
-
     private RenderingData Rendering;
+
+    private Matrix4x4 matrix;
 
     [System.Serializable]
     public class RenderingData
@@ -219,41 +219,48 @@ public class ManagerMain : MonoBehaviour
     {
         Controller();
 
-        Sectors.Clear();
+        if (Cam.transform.hasChanged)
+        {
+            Sectors.Clear();
 
-        GetPolyhedrons(CurrentSector);
+            GetPolyhedrons(CurrentSector);
 
-        CamPlanes.Clear();
+            CamPlanes.Clear();
 
-        ReadFrustumPlanes(Cam, CamPlanes);
+            ReadFrustumPlanes(Cam, CamPlanes);
 
-        CamPlanes.RemoveAt(5);
+            CamPlanes.RemoveAt(5);
 
-        CamPlanes.RemoveAt(4);
+            CamPlanes.RemoveAt(4);
 
-        VisitedSector.Clear();
+            VisitedSector.Clear();
 
-        OpaqueVertices.Clear();
+            OpaqueVertices.Clear();
 
-        OpaqueTextures.Clear();
+            OpaqueTextures.Clear();
 
-        OpaqueTriangles.Clear();
+            OpaqueTriangles.Clear();
 
-        OpaqueNormals.Clear();
+            OpaqueNormals.Clear();
 
-        TransparentVertices.Clear();
+            TransparentVertices.Clear();
 
-        TransparentTextures.Clear();
+            TransparentTextures.Clear();
 
-        TransparentNormals.Clear();
+            TransparentNormals.Clear();
 
-        TransparentTriangles.Clear();
+            TransparentTriangles.Clear();
 
-        h = 0;
+            h = 0;
 
-        y = 0;
+            y = 0;
 
-        GetPortals(CamPlanes, CurrentSector);
+            GetPortals(CamPlanes, CurrentSector);
+
+            SetRenderMeshes();
+
+            Cam.transform.hasChanged = false;
+        }
 
         Renderit();
     }
@@ -724,7 +731,7 @@ public class ManagerMain : MonoBehaviour
         }
     }
 
-    public void Renderit()
+    public void SetRenderMeshes()
     {
         opaquemesh.Clear();
 
@@ -735,10 +742,6 @@ public class ManagerMain : MonoBehaviour
         opaquemesh.SetTriangles(OpaqueTriangles, 0);
 
         opaquemesh.SetNormals(OpaqueNormals);
-
-        rp.material = opaquematerial;
-
-        Graphics.RenderMesh(rp, opaquemesh, 0, matrix);
 
         transparentmesh.Clear();
 
@@ -758,6 +761,13 @@ public class ManagerMain : MonoBehaviour
         }
 
         transparentmesh.SetNormals(TransparentNormals);
+    }
+
+    public void Renderit()
+    {
+        rp.material = opaquematerial;
+
+        Graphics.RenderMesh(rp, opaquemesh, 0, matrix);
 
         rp.material = transparentmaterial;
 
