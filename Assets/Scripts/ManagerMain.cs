@@ -1,6 +1,5 @@
-using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ManagerMain : MonoBehaviour
@@ -86,11 +85,11 @@ public class ManagerMain : MonoBehaviour
 
     private List<List<Plane>> ListsOfPlanes = new List<List<Plane>>();
 
-    private List<List<Vector3>> ListsOfVertices = new List<List<Vector3>>();
+    private List<Vector3> Vertices = new List<Vector3>();
 
-    private List<List<Vector4>> ListsOfTextures = new List<List<Vector4>>();
+    private List<Vector4> Textures = new List<Vector4>();
 
-    private List<List<Vector3>> ListsOfNormals = new List<List<Vector3>>();
+    private List<Vector3> Normals = new List<Vector3>();
 
     private Material opaquematerial;
 
@@ -170,7 +169,6 @@ public class ManagerMain : MonoBehaviour
         {
             public Color MeshLight;
         }
-
     }
 
     void Awake()
@@ -284,21 +282,6 @@ public class ManagerMain : MonoBehaviour
                 ListsOfPlanes.Add(new List<Plane>());
             }
         }
-
-        for (int i = 0; i < 2; i++)
-        {
-            ListsOfVertices.Add(new List<Vector3>());
-        }
-
-        for (int i = 0; i < 2; i++)
-        {
-            ListsOfTextures.Add(new List<Vector4>());
-        }
-
-        for (int i = 0; i < 2; i++)
-        {
-            ListsOfNormals.Add(new List<Vector3>());
-        }
     }
 
     public void CreateMaterial()
@@ -379,11 +362,6 @@ public class ManagerMain : MonoBehaviour
 
             Planes.Add(new Plane(p1, p2));
         }
-    }
-
-    public float PointDistanceToPlane(Plane plane, Vector3 point)
-    {
-        return plane.normal.x * point.x + plane.normal.y * point.y + plane.normal.z * point.z + plane.distance;
     }
 
     public void CreateClippingPlanes(List<Vector3> aVertices, List<Plane> aList, Vector3 aViewPos)
@@ -497,7 +475,7 @@ public class ManagerMain : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             Vector3 p = invertices[i];
-            m_Dists.Add(PointDistanceToPlane(aPlane, p));
+            m_Dists.Add(aPlane.GetDistanceToPoint(p));
         }
         for (int i = 0; i < count; i++)
         {
@@ -532,22 +510,11 @@ public class ManagerMain : MonoBehaviour
     {
         for (int i = 0; i < aPlanes.Count; i++)
         {
-            if (i % 2 == 0)
-            {
-                ListsOfVertices[0].Clear();
+            Vertices.Clear();
 
-                ListsOfVertices[0].AddRange(invertices);
+            Vertices.AddRange(invertices);
 
-                invertices = ClippingPlane(ListsOfVertices[0], aPlanes[i]);
-            }
-            else
-            {
-                ListsOfVertices[1].Clear();
-
-                ListsOfVertices[1].AddRange(invertices);
-
-                invertices = ClippingPlane(ListsOfVertices[1], aPlanes[i]);
-            }  
+            invertices = ClippingPlane(Vertices, aPlanes[i]);
         }
 
         return invertices;
@@ -572,7 +539,7 @@ public class ManagerMain : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             Vector3 p = verttexnorm.Item1[i];
-            m_Dists.Add(PointDistanceToPlane(aPlane, p));
+            m_Dists.Add(aPlane.GetDistanceToPoint(p));
         }
         for (int i = 0; i < count; i++)
         {
@@ -619,38 +586,19 @@ public class ManagerMain : MonoBehaviour
     {
         for (int i = 0; i < aPlanes.Count; i++)
         {
-            if (i % 2 == 0)
-            {
-                ListsOfVertices[0].Clear();
+            Vertices.Clear();
 
-                ListsOfVertices[0].AddRange(verttexnorm.Item1);
+            Vertices.AddRange(verttexnorm.Item1);
 
-                ListsOfTextures[0].Clear();
+            Textures.Clear();
 
-                ListsOfTextures[0].AddRange(verttexnorm.Item2);
+            Textures.AddRange(verttexnorm.Item2);
 
-                ListsOfNormals[0].Clear();
+            Normals.Clear();
 
-                ListsOfNormals[0].AddRange(verttexnorm.Item3);
+            Normals.AddRange(verttexnorm.Item3);
 
-                verttexnorm = ClippingPlaneVertTexNorm((ListsOfVertices[0], ListsOfTextures[0], ListsOfNormals[0]), aPlanes[i]);
-            }
-            else
-            {
-                ListsOfVertices[1].Clear();
-
-                ListsOfVertices[1].AddRange(verttexnorm.Item1);
-
-                ListsOfTextures[1].Clear();
-
-                ListsOfTextures[1].AddRange(verttexnorm.Item2);
-
-                ListsOfNormals[1].Clear();
-
-                ListsOfNormals[1].AddRange(verttexnorm.Item3);
-
-                verttexnorm = ClippingPlaneVertTexNorm((ListsOfVertices[1], ListsOfTextures[1], ListsOfNormals[1]), aPlanes[i]);
-            }  
+            verttexnorm = ClippingPlaneVertTexNorm((Vertices, Textures, Normals), aPlanes[i]);
         }
 
         return verttexnorm;
@@ -662,7 +610,7 @@ public class ManagerMain : MonoBehaviour
 
         for (int e = 0; e < asector.MeshPlanes.Count; e++)
         {
-            if (PointDistanceToPlane(Planes[asector.MeshPlanes[e]], campoint) < -0.6f)
+            if (Planes[asector.MeshPlanes[e]].GetDistanceToPoint(campoint) < -0.6f)
             {
                 PointIn = false;
                 break;
@@ -677,7 +625,7 @@ public class ManagerMain : MonoBehaviour
 
         for (int i = 0; i < asector.MeshPlanes.Count; i++)
         {
-            if (PointDistanceToPlane(Planes[asector.MeshPlanes[i]], campoint) < 0)
+            if (Planes[asector.MeshPlanes[i]].GetDistanceToPoint(campoint) < 0)
             {
                 PointIn = false;
                 break;
@@ -783,7 +731,7 @@ public class ManagerMain : MonoBehaviour
 
         for (int i = 0; i < BSector.MeshRenders.Count; i++)
         {
-            float d = PointDistanceToPlane(Planes[BSector.MeshRenders[i]], CamPoint);
+            float d = Planes[BSector.MeshRenders[i]].GetDistanceToPoint(CamPoint);
 
             if (d < -0.1f)
             {
@@ -820,7 +768,7 @@ public class ManagerMain : MonoBehaviour
 
         for (int i = 0; i < BSector.MeshTransparent.Count; i++)
         {
-            float d = PointDistanceToPlane(Planes[BSector.MeshTransparent[i]], CamPoint);
+            float d = Planes[BSector.MeshTransparent[i]].GetDistanceToPoint(CamPoint);
 
             if (d < -0.1f)
             {
@@ -857,7 +805,7 @@ public class ManagerMain : MonoBehaviour
 
         for (int i = 0; i < BSector.MeshPortals.Count; i++)
         {
-            float d = PointDistanceToPlane(Planes[BSector.MeshPortals[i]], CamPoint);
+            float d = Planes[BSector.MeshPortals[i]].GetDistanceToPoint(CamPoint);
 
             if (d < -0.1f)
             {
