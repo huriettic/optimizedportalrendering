@@ -6,13 +6,23 @@ public class ManagerMain : MonoBehaviour
 {
     public string Name = "Tutorial";
 
+    private float d;
+
     private int h;
 
     private int y;
 
+    private bool t;
+
+    private bool PointIn;
+
     private Mesh opaquemesh;
 
     private Mesh transparentmesh;
+
+    private Vector3 p1; 
+
+    private Vector3 p2;
 
     private float lerpX;
     private float lerpY;
@@ -72,8 +82,6 @@ public class ManagerMain : MonoBehaviour
     private List<int> TransparentTriangles = new List<int>();
 
     private List<RenderingData.Polyhedron> Sectors = new List<RenderingData.Polyhedron>();
-
-    private List<RenderingData.Polyhedron> VisitedSector = new List<RenderingData.Polyhedron>();
 
     private List<GameObject> CollisionSectors = new List<GameObject>();
 
@@ -231,8 +239,6 @@ public class ManagerMain : MonoBehaviour
 
             CamPlanes.RemoveAt(4);
 
-            VisitedSector.Clear();
-
             OpaqueVertices.Clear();
 
             OpaqueTextures.Clear();
@@ -357,8 +363,8 @@ public class ManagerMain : MonoBehaviour
     {
         for (int i = 0; i < Rendering.PolygonMeshes.Count; i++)
         {
-            Vector3 p1 = Rendering.PolygonMeshes[i].Normals[0];
-            Vector3 p2 = Rendering.PolygonMeshes[i].Vertices[0];
+            p1 = Rendering.PolygonMeshes[i].Normals[0];
+            p2 = Rendering.PolygonMeshes[i].Vertices[0];
 
             Planes.Add(new Plane(p1, p2));
         }
@@ -388,7 +394,7 @@ public class ManagerMain : MonoBehaviour
 
             CombinedTriangles.Clear();
 
-            int h = 0;
+            h = 0;
 
             for (int e = 0; e < Rendering.Polyhedrons[i].MeshCollisions.Count; e++)
             {
@@ -606,7 +612,7 @@ public class ManagerMain : MonoBehaviour
 
     public bool CheckRadius(RenderingData.Polyhedron asector, Vector3 campoint)
     {
-        bool PointIn = true;
+        PointIn = true;
 
         for (int e = 0; e < asector.MeshPlanes.Count; e++)
         {
@@ -621,7 +627,7 @@ public class ManagerMain : MonoBehaviour
 
     public bool CheckPolyhedron(RenderingData.Polyhedron asector, Vector3 campoint)
     {
-        bool PointIn = true;
+        PointIn = true;
 
         for (int i = 0; i < asector.MeshPlanes.Count; i++)
         {
@@ -649,9 +655,9 @@ public class ManagerMain : MonoBehaviour
                 continue;
             }
 
-            bool r = CheckRadius(Rendering.Polyhedrons[f.Portal], CamPoint);
+            t = CheckRadius(Rendering.Polyhedrons[f.Portal], CamPoint);
 
-            if (r == true)
+            if (t == true)
             {
                 GetPolyhedrons(Rendering.Polyhedrons[f.Portal]);
 
@@ -659,7 +665,7 @@ public class ManagerMain : MonoBehaviour
             }
         }
 
-        bool t = CheckPolyhedron(ASector, CamPoint);
+        t = CheckPolyhedron(ASector, CamPoint);
 
         if (t == true)
         {
@@ -731,7 +737,7 @@ public class ManagerMain : MonoBehaviour
 
         for (int i = 0; i < BSector.MeshRenders.Count; i++)
         {
-            float d = Planes[BSector.MeshRenders[i]].GetDistanceToPoint(CamPoint);
+            d = Planes[BSector.MeshRenders[i]].GetDistanceToPoint(CamPoint);
 
             if (d < -0.1f)
             {
@@ -768,7 +774,7 @@ public class ManagerMain : MonoBehaviour
 
         for (int i = 0; i < BSector.MeshTransparent.Count; i++)
         {
-            float d = Planes[BSector.MeshTransparent[i]].GetDistanceToPoint(CamPoint);
+            d = Planes[BSector.MeshTransparent[i]].GetDistanceToPoint(CamPoint);
 
             if (d < -0.1f)
             {
@@ -805,7 +811,7 @@ public class ManagerMain : MonoBehaviour
 
         for (int i = 0; i < BSector.MeshPortals.Count; i++)
         {
-            float d = Planes[BSector.MeshPortals[i]].GetDistanceToPoint(CamPoint);
+            d = Planes[BSector.MeshPortals[i]].GetDistanceToPoint(CamPoint);
 
             if (d < -0.1f)
             {
