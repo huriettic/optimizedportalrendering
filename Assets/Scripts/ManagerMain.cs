@@ -213,6 +213,8 @@ public class ManagerMain : MonoBehaviour
 
         transparentmesh = new Mesh();
 
+        rp = new RenderParams();
+
         matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, Vector3.one);
 
         CollisionObjects = new GameObject("CollisionMeshes");
