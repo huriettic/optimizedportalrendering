@@ -41,6 +41,12 @@ public class ManagerMain : MonoBehaviour
 
     private CharacterController Player;
 
+    private bool isRender;
+
+    private bool isTransparent;
+
+    private bool isPortal;
+
     private Color[] LightColor;
 
     private int[] OneTriangle;
@@ -93,11 +99,15 @@ public class ManagerMain : MonoBehaviour
 
     private List<List<Plane>> ListsOfPlanes = new List<List<Plane>>();
 
+    public List<(List<Vector3>, List<Vector4>, List<Vector3>)> ListsOfLists = new List<(List<Vector3>, List<Vector4>, List<Vector3>)>();
+
     private List<Vector3> Vertices = new List<Vector3>();
 
     private List<Vector4> Textures = new List<Vector4>();
 
     private List<Vector3> Normals = new List<Vector3>();
+
+    private Matrix4x4 matrix;
 
     private Material opaquematerial;
 
@@ -106,8 +116,6 @@ public class ManagerMain : MonoBehaviour
     private List<Mesh> CollisionMesh = new List<Mesh>();
 
     private RenderingData Rendering;
-
-    private Matrix4x4 matrix;
 
     [System.Serializable]
     public class RenderingData
@@ -288,6 +296,11 @@ public class ManagerMain : MonoBehaviour
                 ListsOfPlanes.Add(new List<Plane>());
             }
         }
+
+        for (int i = 0;i < Rendering.PolygonMeshes.Count; i++)
+        {
+            ListsOfLists.Add((new List<Vector3>(), new List<Vector4>(), new List<Vector3>()));
+        }
     }
 
     public void CreateMaterial()
@@ -466,64 +479,6 @@ public class ManagerMain : MonoBehaviour
 
         Player.Move(move * speed * Time.deltaTime);
         Player.Move(moveDirection * Time.deltaTime);
-    }
-
-    public List<Vector3> ClippingPlane(List<Vector3> invertices, Plane aPlane, float aEpsilon = 0.001f)
-    {
-        m_Dists.Clear();
-        outvertices.Clear();
-
-        int count = invertices.Count;
-        if (m_Dists.Capacity < count)
-            m_Dists.Capacity = count;
-        if (outvertices.Capacity < count)
-            outvertices.Capacity = count;
-        for (int i = 0; i < count; i++)
-        {
-            Vector3 p = invertices[i];
-            m_Dists.Add(aPlane.GetDistanceToPoint(p));
-        }
-        for (int i = 0; i < count; i++)
-        {
-            int j = (i + 1) % count;
-            float d1 = m_Dists[i];
-            float d2 = m_Dists[j];
-            Vector3 p1 = invertices[i];
-            Vector3 p2 = invertices[j];
-            bool split = d1 > aEpsilon;
-            if (split)
-            {
-                outvertices.Add(p1);
-            }
-            else if (d1 > -aEpsilon)
-            {
-                // point on clipping plane so just keep it
-                outvertices.Add(p1);
-                continue;
-            }
-            // both points are on the same side of the plane
-            if ((d2 > -aEpsilon && split) || (d2 < aEpsilon && !split))
-            {
-                continue;
-            }
-            float d = d1 / (d1 - d2);
-            outvertices.Add(p1 + (p2 - p1) * d);
-        }
-        return outvertices;
-    }
-
-    public List<Vector3> ClippingPlanes(List<Vector3> invertices, List<Plane> aPlanes)
-    {
-        for (int i = 0; i < aPlanes.Count; i++)
-        {
-            Vertices.Clear();
-
-            Vertices.AddRange(invertices);
-
-            invertices = ClippingPlane(Vertices, aPlanes[i]);
-        }
-
-        return invertices;
     }
 
     public (List<Vector3>, List<Vector4>, List<Vector3>) ClippingPlaneVertTexNorm((List<Vector3>, List<Vector4>, List<Vector3>) verttexnorm, Plane aPlane, float aEpsilon = 0.001f)
@@ -735,124 +690,94 @@ public class ManagerMain : MonoBehaviour
     {
         Vector3 CamPoint = Cam.transform.position;
 
-        for (int i = 0; i < BSector.MeshRenders.Count; i++)
+        for (int i = 0; i < BSector.MeshPlanes.Count; i++)
         {
-            d = Planes[BSector.MeshRenders[i]].GetDistanceToPoint(CamPoint);
+            d = Planes[BSector.MeshPlanes[i]].GetDistanceToPoint(CamPoint);
 
-            if (d < -0.1f)
+            if (d < -0.1f || d <= 0)
             {
                 continue;
             }
 
-            if (d <= 0)
+            isRender = BSector.MeshRenders.Contains(BSector.MeshPlanes[i]);
+
+            isTransparent = BSector.MeshTransparent.Contains(BSector.MeshPlanes[i]);
+
+            isPortal = BSector.MeshPortals.Contains(BSector.MeshPlanes[i]);
+
+            RenderingData.PolygonMesh r = Rendering.PolygonMeshes[BSector.MeshPlanes[i]];
+
+            RenderingData.PolygonData g = Rendering.PolygonInformation[BSector.MeshPlanes[i]];
+
+            ListsOfLists[BSector.MeshPlanes[i]] = ClippingPlanesVertTexNorm((r.Vertices, r.Textures, r.Normals), APlanes);
+
+            if (isRender)
             {
-                continue;
-            }
+                OpaqueVertices.AddRange(ListsOfLists[BSector.MeshPlanes[i]].Item1);
 
-            RenderingData.PolygonMesh r = Rendering.PolygonMeshes[BSector.MeshRenders[i]];
+                OpaqueTextures.AddRange(ListsOfLists[BSector.MeshPlanes[i]].Item2);
 
-            (List<Vector3>, List<Vector4>, List<Vector3>) outverttexnorm = ClippingPlanesVertTexNorm((r.Vertices, r.Textures, r.Normals), APlanes);
+                OpaqueNormals.AddRange(ListsOfLists[BSector.MeshPlanes[i]].Item3);
 
-            OpaqueVertices.AddRange(outverttexnorm.Item1);
-
-            OpaqueTextures.AddRange(outverttexnorm.Item2);
-
-            OpaqueNormals.AddRange(outverttexnorm.Item3);
-
-            if (outverttexnorm.Item1.Count > 2)
-            {
-                for (int e = 2; e < outverttexnorm.Item1.Count; e++)
+                if (ListsOfLists[BSector.MeshPlanes[i]].Item1.Count > 2)
                 {
-                    OpaqueTriangles.Add(0 + h);
-                    OpaqueTriangles.Add(e - 1 + h);
-                    OpaqueTriangles.Add(e + h);
+                    for (int e = 0; e < ListsOfLists[BSector.MeshPlanes[i]].Item1.Count - 2; e++)
+                    {
+                        OpaqueTriangles.Add(0 + h);
+                        OpaqueTriangles.Add(e + 1 + h);
+                        OpaqueTriangles.Add(e + 2 + h);
+                    }
                 }
+
+                h += ListsOfLists[BSector.MeshPlanes[i]].Item1.Count;
             }
 
-            h += outverttexnorm.Item1.Count;
-        }
-
-        for (int i = 0; i < BSector.MeshTransparent.Count; i++)
-        {
-            d = Planes[BSector.MeshTransparent[i]].GetDistanceToPoint(CamPoint);
-
-            if (d < -0.1f)
+            if (isTransparent)
             {
-                continue;
-            }
+                TransparentVertices.AddRange(ListsOfLists[BSector.MeshPlanes[i]].Item1);
 
-            if (d <= 0)
-            {
-                continue;
-            }
+                TransparentTextures.AddRange(ListsOfLists[BSector.MeshPlanes[i]].Item2);
 
-            RenderingData.PolygonMesh t = Rendering.PolygonMeshes[BSector.MeshTransparent[i]];
+                TransparentNormals.AddRange(ListsOfLists[BSector.MeshPlanes[i]].Item3);
 
-            (List<Vector3>, List<Vector4>, List<Vector3>) outverttexnormt = ClippingPlanesVertTexNorm((t.Vertices, t.Textures, t.Normals), APlanes);
-
-            TransparentVertices.AddRange(outverttexnormt.Item1);
-
-            TransparentTextures.AddRange(outverttexnormt.Item2);
-
-            TransparentNormals.AddRange(outverttexnormt.Item3);
-
-            if (outverttexnormt.Item1.Count > 2)
-            {
-                for (int e = 2; e < outverttexnormt.Item1.Count; e++)
+                if (ListsOfLists[BSector.MeshPlanes[i]].Item1.Count > 2)
                 {
-                    TransparentTriangles.Add(0 + y);
-                    TransparentTriangles.Add(e - 1 + y);
-                    TransparentTriangles.Add(e + y);
+                    for (int e = 0; e < ListsOfLists[BSector.MeshPlanes[i]].Item1.Count - 2; e++)
+                    {
+                        TransparentTriangles.Add(0 + y);
+                        TransparentTriangles.Add(e + 1 + y);
+                        TransparentTriangles.Add(e + 2 + y);
+                    }
                 }
+
+                y += ListsOfLists[BSector.MeshPlanes[i]].Item1.Count;
             }
 
-            y += outverttexnormt.Item1.Count;
-        }
-
-        for (int i = 0; i < BSector.MeshPortals.Count; i++)
-        {
-            d = Planes[BSector.MeshPortals[i]].GetDistanceToPoint(CamPoint);
-
-            if (d < -0.1f)
+            if (isPortal)
             {
-                continue;
-            }
-
-            if (d <= 0)
-            {
-                continue;
-            }
-
-            RenderingData.PolygonData g = Rendering.PolygonInformation[BSector.MeshPortals[i]];
-
-            RenderingData.PolygonMesh v = Rendering.PolygonMeshes[BSector.MeshPortals[i]];
-
-            if (Sectors.Contains(Rendering.Polyhedrons[g.Portal]))
-            {
-                ListsOfPlanes[g.PortalNumber].Clear();
-
-                ListsOfPlanes[g.PortalNumber].AddRange(APlanes);
-
-                GetPortals(ListsOfPlanes[g.PortalNumber], Rendering.Polyhedrons[g.Portal]);
-
-                continue;
-            }
-
-            if (d != 0)
-            {
-                List<Vector3> verticesout = ClippingPlanes(v.Vertices, APlanes);
-
-                if (verticesout.Count > 2)
+                if (Sectors.Contains(Rendering.Polyhedrons[g.Portal]))
                 {
-
                     ListsOfPlanes[g.PortalNumber].Clear();
 
-                    CreateClippingPlanes(verticesout, ListsOfPlanes[g.PortalNumber], CamPoint);
+                    ListsOfPlanes[g.PortalNumber].AddRange(APlanes);
 
                     GetPortals(ListsOfPlanes[g.PortalNumber], Rendering.Polyhedrons[g.Portal]);
+
+                    continue;
+                }
+
+                if (d != 0)
+                {
+                    if (ListsOfLists[BSector.MeshPlanes[i]].Item1.Count > 2)
+                    {
+                        ListsOfPlanes[g.PortalNumber].Clear();
+
+                        CreateClippingPlanes(ListsOfLists[BSector.MeshPlanes[i]].Item1, ListsOfPlanes[g.PortalNumber], CamPoint);
+
+                        GetPortals(ListsOfPlanes[g.PortalNumber], Rendering.Polyhedrons[g.Portal]);
+                    }
                 }
             }
         }
     }
 }
-
