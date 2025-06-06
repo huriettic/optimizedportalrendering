@@ -333,17 +333,20 @@ public class ManagerMain : MonoBehaviour
 
     public void Playerstart()
     {
-        int random = UnityEngine.Random.Range(0, Rendering.PlayerPosition.Count);
-
-        for (int i = 0; i < Rendering.Polyhedrons.Count; i++)
+        if (Rendering.PlayerPosition.Count == 0)
         {
-            if (Rendering.PlayerPosition[random].Sector == i)
-            {
-                CurrentSector = Rendering.Polyhedrons[i];
+            Debug.LogError("No player starts available.");
 
-                Player.transform.position = new Vector3(Rendering.PlayerPosition[random].Position.x, Rendering.PlayerPosition[random].Position.y + 1.10f, Rendering.PlayerPosition[random].Position.z);
-            }
+            return;
         }
+
+        int randomIndex = UnityEngine.Random.Range(0, Rendering.PlayerPosition.Count);
+
+        RenderingData.PlayerStarts selectedPosition = Rendering.PlayerPosition[randomIndex];
+
+        CurrentSector = Rendering.Polyhedrons[selectedPosition.Sector];
+
+        Player.transform.position = new Vector3(selectedPosition.Position.x, selectedPosition.Position.y + 1.10f, selectedPosition.Position.z);
     }
 
     private Plane FromVec4(Vector4 aVec)
@@ -710,7 +713,7 @@ public class ManagerMain : MonoBehaviour
 
                 OpaqueNormals.AddRange(clippedData.Item3);
 
-                if (clippedData.Item1.Count > 2)
+                if (count > 2)
                 {
                     for (int e = 0; e < count - 2; e++)
                     {
@@ -720,7 +723,7 @@ public class ManagerMain : MonoBehaviour
                     }
                 }
 
-                h += clippedData.Item1.Count;
+                h += count;
             }
 
             if (isTransparent)
@@ -731,7 +734,7 @@ public class ManagerMain : MonoBehaviour
 
                 TransparentNormals.AddRange(clippedData.Item3);
 
-                if (clippedData.Item1.Count > 2)
+                if (count > 2)
                 {
                     for (int e = 0; e < count - 2; e++)
                     {
@@ -741,7 +744,7 @@ public class ManagerMain : MonoBehaviour
                     }
                 }
 
-                y += clippedData.Item1.Count;
+                y += count;
             }
 
             if (isPortal)
