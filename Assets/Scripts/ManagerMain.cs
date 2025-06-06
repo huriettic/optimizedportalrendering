@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class ManagerMain : MonoBehaviour
@@ -39,7 +38,7 @@ public class ManagerMain : MonoBehaviour
 
     private CharacterController Player;
 
-    private bool isRender;
+    private bool isOpaque;
 
     private bool isTransparent;
 
@@ -601,16 +600,18 @@ public class ManagerMain : MonoBehaviour
         {
             RenderingData.PolygonData polygonData = Rendering.PolygonInformation[ASectors];
 
-            if (Sectors.Contains(Rendering.Polyhedrons[polygonData.Portal]))
+            RenderingData.Polyhedron polygonPortal = Rendering.Polyhedrons[polygonData.Portal];
+
+            if (Sectors.Contains(polygonPortal))
             {
                 continue;
             }
 
-            t = CheckRadius(Rendering.Polyhedrons[polygonData.Portal], CamPoint);
+            t = CheckRadius(polygonPortal, CamPoint);
 
             if (t == true)
             {
-                GetPolyhedrons(Rendering.Polyhedrons[polygonData.Portal]);
+                GetPolyhedrons(polygonPortal);
 
                 continue;
             }
@@ -622,16 +623,10 @@ public class ManagerMain : MonoBehaviour
         {
             CurrentSector = ASector;
 
-            IEnumerable<RenderingData.Polyhedron> except = Rendering.Polyhedrons.Except(Sectors);
-
-            foreach (RenderingData.Polyhedron sector in except)
+            foreach (RenderingData.Polyhedron sector in Rendering.Polyhedrons)
             {
-                Physics.IgnoreCollision(Player, CollisionSectors[sector.PolyhedronNumber].GetComponent<MeshCollider>(), true);
-            }
-
-            foreach (RenderingData.Polyhedron sector in Sectors)
-            {
-                Physics.IgnoreCollision(Player, CollisionSectors[sector.PolyhedronNumber].GetComponent<MeshCollider>(), false);
+                bool shouldCollide = Sectors.Contains(sector);
+                Physics.IgnoreCollision(Player, CollisionSectors[sector.PolyhedronNumber].GetComponent<MeshCollider>(), !shouldCollide);
             }
         }
     }
@@ -693,21 +688,21 @@ public class ManagerMain : MonoBehaviour
                 continue;
             }
 
-            RenderingData.PolygonMesh r = Rendering.PolygonMeshes[planeIndex];
+            RenderingData.PolygonMesh renderData = Rendering.PolygonMeshes[planeIndex];
 
-            RenderingData.PolygonData g = Rendering.PolygonInformation[planeIndex];
+            RenderingData.PolygonData polygonData = Rendering.PolygonInformation[planeIndex];
 
-            isRender = g.Render != -1;
-            isTransparent = g.Transparent != -1;
-            isPortal = g.Portal != -1;
+            isOpaque = polygonData.Render != -1;
+            isTransparent = polygonData.Transparent != -1;
+            isPortal = polygonData.Portal != -1;
 
-            (List<Vector3>, List<Vector4>, List<Vector3>) clippedData = ClippingPlanesVertTexNorm((r.Vertices, r.Textures, r.Normals), APlanes);
+            (List<Vector3>, List<Vector4>, List<Vector3>) clippedData = ClippingPlanesVertTexNorm((renderData.Vertices, renderData.Textures, renderData.Normals), APlanes);
 
             ListsOfLists[planeIndex] = clippedData;
 
             int count = clippedData.Item1.Count;
 
-            if (isRender)
+            if (isOpaque)
             {
                 OpaqueVertices.AddRange(clippedData.Item1);
 
@@ -751,9 +746,11 @@ public class ManagerMain : MonoBehaviour
 
             if (isPortal)
             {
-                if (Sectors.Contains(Rendering.Polyhedrons[g.Portal]))
+                RenderingData.Polyhedron polygonPortal = Rendering.Polyhedrons[polygonData.Portal];
+
+                if (Sectors.Contains(polygonPortal))
                 {
-                    GetPortals(APlanes, Rendering.Polyhedrons[g.Portal]);
+                    GetPortals(APlanes, polygonPortal);
 
                     continue;
                 }
@@ -762,11 +759,11 @@ public class ManagerMain : MonoBehaviour
                 {
                     if (clippedData.Item1.Count > 2)
                     {
-                        ListsOfPlanes[g.PortalNumber].Clear();
+                        ListsOfPlanes[polygonData.PortalNumber].Clear();
 
-                        CreateClippingPlanes(clippedData.Item1, ListsOfPlanes[g.PortalNumber], CamPoint);
+                        CreateClippingPlanes(clippedData.Item1, ListsOfPlanes[polygonData.PortalNumber], CamPoint);
 
-                        GetPortals(ListsOfPlanes[g.PortalNumber], Rendering.Polyhedrons[g.Portal]);
+                        GetPortals(ListsOfPlanes[polygonData.PortalNumber], polygonPortal);
                     }
                 }
             }
