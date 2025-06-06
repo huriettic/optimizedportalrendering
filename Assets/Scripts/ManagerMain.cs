@@ -94,8 +94,6 @@ public class ManagerMain : MonoBehaviour
 
     private List<Vector3> outnormals = new List<Vector3>();
 
-    private List<float> m_Dists = new List<float>();
-
     private List<List<Plane>> ListsOfPlanes = new List<List<Plane>>();
 
     public List<(List<Vector3>, List<Vector4>, List<Vector3>)> ListsOfLists = new List<(List<Vector3>, List<Vector4>, List<Vector3>)>();
@@ -487,71 +485,45 @@ public class ManagerMain : MonoBehaviour
         Player.Move(moveDirection * Time.deltaTime);
     }
 
-    public (List<Vector3>, List<Vector4>, List<Vector3>) ClippingPlaneVertTexNorm((List<Vector3>, List<Vector4>, List<Vector3>) verttexnorm, Plane aPlane, float aEpsilon = 0.001f)
+    public (List<Vector3>, List<Vector4>, List<Vector3>) ClipThePolygon((List<Vector3>, List<Vector4>, List<Vector3>) verttexnorm, Plane plane, float epsilon = 0.00001f)
     {
-        m_Dists.Clear();
         outvertices.Clear();
         outtex.Clear();
         outnormals.Clear();
 
         int count = verttexnorm.Item1.Count;
-        if (m_Dists.Capacity < count)
-            m_Dists.Capacity = count;
-        if (outvertices.Capacity < count)
-            outvertices.Capacity = count;
-        if (outtex.Capacity < count)
-            outtex.Capacity = count;
-        if (outnormals.Capacity < count)
-            outnormals.Capacity = count;
-        for (int i = 0; i < count; i++)
-        {
-            Vector3 p = verttexnorm.Item1[i];
-            m_Dists.Add(aPlane.GetDistanceToPoint(p));
-        }
         for (int i = 0; i < count; i++)
         {
             int j = (i + 1) % count;
-            float d1 = m_Dists[i];
-            float d2 = m_Dists[j];
             Vector3 p1 = verttexnorm.Item1[i];
             Vector3 p2 = verttexnorm.Item1[j];
             Vector4 t1 = verttexnorm.Item2[i];
             Vector4 t2 = verttexnorm.Item2[j];
-            Vector3 faceNormal = verttexnorm.Item3[0];
-            bool split = d1 > aEpsilon;
-            if (split)
+            Vector3 n1 = verttexnorm.Item3[i];
+            Vector3 n2 = verttexnorm.Item3[j];
+            float d1 = plane.GetDistanceToPoint(p1);
+            float d2 = plane.GetDistanceToPoint(p2);
+            if (d1 > -epsilon)
             {
                 outvertices.Add(p1);
                 outtex.Add(t1);
-                outnormals.Add(faceNormal);
+                outnormals.Add(n1);
             }
-            else if (d1 > -aEpsilon)
+            if ((d1 > -epsilon && d2 < -epsilon) || (d1 < -epsilon && d2 > -epsilon))
             {
-                // point on clipping plane so just keep it
-                outvertices.Add(p1);
-                outtex.Add(t1);
-                outnormals.Add(faceNormal);
-                continue;
+                float d = d1 / (d1 - d2);
+                outvertices.Add(Vector3.Lerp(p1, p2, d));
+                outtex.Add(Vector4.Lerp(t1, t2, d));
+                outnormals.Add(Vector3.Lerp(n1, n2, d).normalized);
             }
-            // both points are on the same side of the plane
-            if ((d2 > -aEpsilon && split) || (d2 < aEpsilon && !split))
-            {
-                continue;
-            }
-            float d = d1 / (d1 - d2);
-            outvertices.Add(p1 + (p2 - p1) * d);
-            float x1 = t1.x + (t2.x - t1.x) * d;
-            float y1 = t1.y + (t2.y - t1.y) * d;
-            outtex.Add(new Vector4(x1, y1, t1.z, t1.w));
-            outnormals.Add(faceNormal);
         }
 
         return (outvertices, outtex, outnormals);
     }
 
-    public (List<Vector3>, List<Vector4>, List<Vector3>) ClippingPlanesVertTexNorm((List<Vector3>, List<Vector4>, List<Vector3>) verttexnorm, List<Plane> aPlanes)
+    public (List<Vector3>, List<Vector4>, List<Vector3>) ClippingPlanesForPolygon((List<Vector3>, List<Vector4>, List<Vector3>) verttexnorm, List<Plane> planes)
     {
-        foreach (Plane plane in aPlanes)
+        foreach (Plane plane in planes)
         {
             Vertices.Clear();
 
@@ -565,7 +537,7 @@ public class ManagerMain : MonoBehaviour
 
             Normals.AddRange(verttexnorm.Item3);
 
-            verttexnorm = ClippingPlaneVertTexNorm((Vertices, Textures, Normals), plane);
+            verttexnorm = ClipThePolygon((Vertices, Textures, Normals), plane);
         }
 
         return verttexnorm;
@@ -699,7 +671,7 @@ public class ManagerMain : MonoBehaviour
             isTransparent = polygonData.Transparent != -1;
             isPortal = polygonData.Portal != -1;
 
-            (List<Vector3>, List<Vector4>, List<Vector3>) clippedData = ClippingPlanesVertTexNorm((renderData.Vertices, renderData.Textures, renderData.Normals), APlanes);
+            (List<Vector3>, List<Vector4>, List<Vector3>) clippedData = ClippingPlanesForPolygon((renderData.Vertices, renderData.Textures, renderData.Normals), APlanes);
 
             ListsOfLists[planeIndex] = clippedData;
 
