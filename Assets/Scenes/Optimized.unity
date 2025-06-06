@@ -412,8 +412,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Tutorial
   speed: 6
-  jumpHeight: 10
-  gravity: 20
+  jumpHeight: 2
+  gravity: 5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

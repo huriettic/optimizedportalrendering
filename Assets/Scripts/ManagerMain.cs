@@ -34,7 +34,7 @@ public class ManagerMain : MonoBehaviour
     public float jumpHeight = 10f;
     public float gravity = 20f;
 
-    private Vector3 moveDirection = Vector3.zero;
+    private Vector3 direction = Vector3.zero;
 
     private CharacterController Player;
 
@@ -230,7 +230,11 @@ public class ManagerMain : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Controller();
+        PlayerInput();
+
+        PlayerRotation();
+
+        PlayerMovement();
 
         if (Cam.transform.hasChanged)
         {
@@ -276,6 +280,14 @@ public class ManagerMain : MonoBehaviour
         }
 
         Renderit();
+    }
+
+    void FixedUpdate()
+    {
+        if (!Player.isGrounded)
+        {
+            direction.y -= gravity * Time.deltaTime;
+        }
     }
 
     public void Load()
@@ -447,42 +459,38 @@ public class ManagerMain : MonoBehaviour
         }
     }
 
-    public void Controller()
+    public void PlayerInput()
     {
-        if (Input.GetKey("escape"))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
         }
-
-        if (Input.GetButton("Jump") && Player.isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && Player.isGrounded)
         {
-            moveDirection.y = jumpHeight;
+            direction.y = jumpHeight;
         }
-        else
-        {
-            moveDirection.y -= gravity * Time.deltaTime;
-        }
+    }
 
+    public void PlayerRotation()
+    {
         float mouseX = Input.GetAxis("Mouse X") * sensitivityX;
         float mouseY = Input.GetAxis("Mouse Y") * sensitivityY;
 
         rotationY += mouseX;
         rotationX -= mouseY;
-
         rotationX = Mathf.Clamp(rotationX, -lookAngle, lookAngle);
+
         lerpX = Mathf.Lerp(lerpX, rotationX, snap * Time.deltaTime);
         lerpY = Mathf.Lerp(lerpY, rotationY, snap * Time.deltaTime);
 
         Cam.transform.rotation = Quaternion.Euler(lerpX, lerpY, 0);
         Player.transform.rotation = Quaternion.Euler(0, lerpY, 0);
+    }
 
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
-
-        Vector3 move = Player.transform.right * x + Player.transform.forward * z;
-
-        Player.Move(move * speed * Time.deltaTime);
-        Player.Move(moveDirection * Time.deltaTime);
+    public void PlayerMovement()
+    {
+        Vector3 move = Player.transform.right * Input.GetAxis("Horizontal") + Player.transform.forward * Input.GetAxis("Vertical");
+        Player.Move((move + direction) * speed * Time.deltaTime);
     }
 
     public (List<Vector3>, List<Vector4>, List<Vector3>) ClipThePolygon((List<Vector3>, List<Vector4>, List<Vector3>) verttexnorm, Plane plane, float epsilon = 0.00001f)
