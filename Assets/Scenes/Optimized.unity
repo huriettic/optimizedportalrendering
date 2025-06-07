@@ -411,7 +411,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Tutorial
-  speed: 6
+  speed: 7
   jumpHeight: 2
   gravity: 5
   sensitivity: 10

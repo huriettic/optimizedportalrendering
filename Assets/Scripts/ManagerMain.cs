@@ -21,7 +21,7 @@ public class ManagerMain : MonoBehaviour
 
     private Vector3 p2;
 
-    public float speed = 6f;
+    public float speed = 7f;
     public float jumpHeight = 2f;
     public float gravity = 5f;
     public float sensitivity = 10f;
