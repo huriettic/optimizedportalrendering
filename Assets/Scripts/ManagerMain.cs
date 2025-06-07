@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ManagerMain : MonoBehaviour
@@ -28,9 +29,10 @@ public class ManagerMain : MonoBehaviour
     public float clampAngle = 90f;
     public float smoothFactor = 25f;
 
-    private Vector2 currentRotation;
     private Vector2 targetRotation;
-    private Vector3 force = Vector3.zero;
+    private Vector3 targetMovement;
+    private Vector2 currentRotation;
+    private Vector3 currentForce;
 
     private CharacterController Player;
 
@@ -83,6 +85,8 @@ public class ManagerMain : MonoBehaviour
     private List<int> TransparentTriangles = new List<int>();
 
     private List<RenderingData.Polyhedron> Sectors = new List<RenderingData.Polyhedron>();
+
+    private List<RenderingData.Polyhedron> OldSectors = new List<RenderingData.Polyhedron>();
 
     private List<GameObject> CollisionSectors = new List<GameObject>();
 
@@ -221,6 +225,11 @@ public class ManagerMain : MonoBehaviour
         Playerstart();
 
         Player.GetComponent<CharacterController>().enabled = true;
+
+        foreach (RenderingData.Polyhedron sector in Rendering.Polyhedrons)
+        {
+            Physics.IgnoreCollision(Player, CollisionSectors[sector.PolyhedronNumber].GetComponent<MeshCollider>(), true);
+        }
     }
 
     // Update is called once per frame
@@ -264,7 +273,7 @@ public class ManagerMain : MonoBehaviour
 
             y = 0;
 
-            GetPortals(CamPlanes, CurrentSector);
+            GetPolygons(CamPlanes, CurrentSector);
 
             SetRenderMeshes();
 
@@ -278,7 +287,7 @@ public class ManagerMain : MonoBehaviour
     {
         if (!Player.isGrounded)
         {
-            force.y -= gravity * Time.deltaTime;
+            currentForce.y -= gravity * Time.deltaTime;
         }
     }
 
@@ -459,7 +468,7 @@ public class ManagerMain : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space) && Player.isGrounded)
         {
-            force.y = jumpHeight;
+            currentForce.y = jumpHeight;
         }
 
         float mousex = Input.GetAxisRaw("Mouse X");
@@ -478,8 +487,9 @@ public class ManagerMain : MonoBehaviour
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
 
-        Vector3 move = (Player.transform.right * horizontal + Player.transform.forward * vertical).normalized;
-        Player.Move((move + force) * speed * Time.deltaTime);
+        targetMovement = (Player.transform.right * horizontal + Player.transform.forward * vertical).normalized;
+
+        Player.Move((targetMovement + currentForce) * speed * Time.deltaTime);
     }
 
     public (List<Vector3>, List<Vector4>, List<Vector3>) ClipThePolygon((List<Vector3>, List<Vector4>, List<Vector3>) verttexnorm, Plane plane, float epsilon = 0.00001f)
@@ -595,11 +605,22 @@ public class ManagerMain : MonoBehaviour
         {
             CurrentSector = ASector;
 
-            foreach (RenderingData.Polyhedron sector in Rendering.Polyhedrons)
+            if (!OldSectors.SequenceEqual(Sectors))
             {
-                bool shouldCollide = Sectors.Contains(sector);
-                Physics.IgnoreCollision(Player, CollisionSectors[sector.PolyhedronNumber].GetComponent<MeshCollider>(), !shouldCollide);
-            }
+                foreach (RenderingData.Polyhedron sector in OldSectors)
+                {
+                    Physics.IgnoreCollision(Player, CollisionSectors[sector.PolyhedronNumber].GetComponent<MeshCollider>(), true);
+                }
+
+                foreach (RenderingData.Polyhedron sector in Sectors)
+                {
+                    Physics.IgnoreCollision(Player, CollisionSectors[sector.PolyhedronNumber].GetComponent<MeshCollider>(), false);
+                }
+
+                OldSectors.Clear();
+
+                OldSectors.AddRange(Sectors);
+            } 
         }
     }
 
@@ -649,7 +670,7 @@ public class ManagerMain : MonoBehaviour
         }
     }
 
-    public void GetPortals(List<Plane> APlanes, RenderingData.Polyhedron BSector)
+    public void GetPolygons(List<Plane> APlanes, RenderingData.Polyhedron BSector)
     {
         foreach (var planeIndex in BSector.MeshPlanes)
         {
@@ -722,7 +743,7 @@ public class ManagerMain : MonoBehaviour
 
                 if (Sectors.Contains(polygonPortal))
                 {
-                    GetPortals(APlanes, polygonPortal);
+                    GetPolygons(APlanes, polygonPortal);
 
                     continue;
                 }
@@ -735,7 +756,7 @@ public class ManagerMain : MonoBehaviour
 
                         CreateClippingPlanes(clippedData.Item1, ListsOfPlanes[polygonData.PortalNumber], CamPoint);
 
-                        GetPortals(ListsOfPlanes[polygonData.PortalNumber], polygonPortal);
+                        GetPolygons(ListsOfPlanes[polygonData.PortalNumber], polygonPortal);
                     }
                 }
             }
