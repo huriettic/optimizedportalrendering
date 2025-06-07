@@ -21,20 +21,16 @@ public class ManagerMain : MonoBehaviour
 
     private Vector3 p2;
 
-    private float lerpX;
-    private float lerpY;
-    private float snap = 25f;
-    private float rotationX;
-    private float rotationY;
-    private float lookAngle = 90f;
-    private float sensitivityX = 10f;
-    private float sensitivityY = 10f;
-
     public float speed = 6f;
-    public float jumpHeight = 10f;
-    public float gravity = 20f;
+    public float jumpHeight = 2f;
+    public float gravity = 5f;
+    public float sensitivity = 10f;
+    public float clampAngle = 90f;
+    public float smoothFactor = 25f;
 
-    private Vector3 direction = Vector3.zero;
+    private Vector2 currentRotation;
+    private Vector2 targetRotation;
+    private Vector3 force = Vector3.zero;
 
     private CharacterController Player;
 
@@ -232,10 +228,6 @@ public class ManagerMain : MonoBehaviour
     {
         PlayerInput();
 
-        PlayerRotation();
-
-        PlayerMovement();
-
         if (Cam.transform.hasChanged)
         {
             CamPoint = Cam.transform.position;
@@ -286,7 +278,7 @@ public class ManagerMain : MonoBehaviour
     {
         if (!Player.isGrounded)
         {
-            direction.y -= gravity * Time.deltaTime;
+            force.y -= gravity * Time.deltaTime;
         }
     }
 
@@ -467,30 +459,27 @@ public class ManagerMain : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space) && Player.isGrounded)
         {
-            direction.y = jumpHeight;
+            force.y = jumpHeight;
         }
-    }
 
-    public void PlayerRotation()
-    {
-        float mouseX = Input.GetAxis("Mouse X") * sensitivityX;
-        float mouseY = Input.GetAxis("Mouse Y") * sensitivityY;
+        float mousex = Input.GetAxisRaw("Mouse X");
+        float mousey = Input.GetAxisRaw("Mouse Y");
 
-        rotationY += mouseX;
-        rotationX -= mouseY;
-        rotationX = Mathf.Clamp(rotationX, -lookAngle, lookAngle);
+        targetRotation.x -= mousey * sensitivity;
+        targetRotation.y += mousex * sensitivity;
 
-        lerpX = Mathf.Lerp(lerpX, rotationX, snap * Time.deltaTime);
-        lerpY = Mathf.Lerp(lerpY, rotationY, snap * Time.deltaTime);
+        targetRotation.x = Mathf.Clamp(targetRotation.x, -clampAngle, clampAngle);
 
-        Cam.transform.rotation = Quaternion.Euler(lerpX, lerpY, 0);
-        Player.transform.rotation = Quaternion.Euler(0, lerpY, 0);
-    }
+        currentRotation = Vector2.Lerp(currentRotation, targetRotation, smoothFactor * Time.deltaTime);
 
-    public void PlayerMovement()
-    {
-        Vector3 move = Player.transform.right * Input.GetAxis("Horizontal") + Player.transform.forward * Input.GetAxis("Vertical");
-        Player.Move((move + direction) * speed * Time.deltaTime);
+        Cam.transform.localRotation = Quaternion.Euler(currentRotation.x, 0f, 0f);
+        Player.transform.rotation = Quaternion.Euler(0f, currentRotation.y, 0f);
+
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+
+        Vector3 move = (Player.transform.right * horizontal + Player.transform.forward * vertical).normalized;
+        Player.Move((move + force) * speed * Time.deltaTime);
     }
 
     public (List<Vector3>, List<Vector4>, List<Vector3>) ClipThePolygon((List<Vector3>, List<Vector4>, List<Vector3>) verttexnorm, Plane plane, float epsilon = 0.00001f)

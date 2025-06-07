@@ -414,6 +414,9 @@ MonoBehaviour:
   speed: 6
   jumpHeight: 2
   gravity: 5
+  sensitivity: 10
+  clampAngle: 90
+  smoothFactor: 25
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
