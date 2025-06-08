@@ -96,13 +96,11 @@ public class ManagerMain : MonoBehaviour
 
     private List<List<Plane>> ListsOfPlanes = new List<List<Plane>>();
 
-    public List<(List<Vector3>, List<Vector4>, List<Vector3>)> ListsOfLists = new List<(List<Vector3>, List<Vector4>, List<Vector3>)>();
+    private List<List<Vector3>> ListsOfVertices = new List<List<Vector3>>();
 
-    private List<Vector3> Vertices = new List<Vector3>();
+    private List<List<Vector4>> ListsOfTextures = new List<List<Vector4>>();
 
-    private List<Vector4> Textures = new List<Vector4>();
-
-    private List<Vector3> Normals = new List<Vector3>();
+    private List<List<Vector3>> ListsOfNormals = new List<List<Vector3>>();
 
     private Matrix4x4 matrix;
 
@@ -311,9 +309,13 @@ public class ManagerMain : MonoBehaviour
             }
         }
 
-        for (int i = 0;i < Rendering.PolygonMeshes.Count; i++)
+        for (int i = 0; i < 20; i++)
         {
-            ListsOfLists.Add((new List<Vector3>(), new List<Vector4>(), new List<Vector3>()));
+            ListsOfVertices.Add(new List<Vector3>());
+
+            ListsOfTextures.Add(new List<Vector4>());
+
+            ListsOfNormals.Add(new List<Vector3>());
         }
     }
 
@@ -499,24 +501,29 @@ public class ManagerMain : MonoBehaviour
         outnormals.Clear();
 
         int count = verttexnorm.Item1.Count;
+
         for (int i = 0; i < count; i++)
         {
             int j = (i + 1) % count;
+
             Vector3 p1 = verttexnorm.Item1[i];
             Vector3 p2 = verttexnorm.Item1[j];
             Vector4 t1 = verttexnorm.Item2[i];
             Vector4 t2 = verttexnorm.Item2[j];
             Vector3 n1 = verttexnorm.Item3[i];
             Vector3 n2 = verttexnorm.Item3[j];
+
             float d1 = plane.GetDistanceToPoint(p1);
             float d2 = plane.GetDistanceToPoint(p2);
-            if (d1 > -epsilon)
+
+            if (d1 >= -epsilon)
             {
                 outvertices.Add(p1);
                 outtex.Add(t1);
                 outnormals.Add(n1);
             }
-            if ((d1 > -epsilon && d2 < -epsilon) || (d1 < -epsilon && d2 > -epsilon))
+
+            if (d1 * d2 < 0)
             {
                 float d = d1 / (d1 - d2);
                 outvertices.Add(Vector3.Lerp(p1, p2, d));
@@ -530,21 +537,21 @@ public class ManagerMain : MonoBehaviour
 
     public (List<Vector3>, List<Vector4>, List<Vector3>) ClippingPlanesForPolygon((List<Vector3>, List<Vector4>, List<Vector3>) verttexnorm, List<Plane> planes)
     {
-        foreach (Plane plane in planes)
+        for (int i = 0; i < planes.Count; i++)
         {
-            Vertices.Clear();
+            ListsOfVertices[i].Clear();
 
-            Vertices.AddRange(verttexnorm.Item1);
+            ListsOfVertices[i].AddRange(verttexnorm.Item1);
 
-            Textures.Clear();
+            ListsOfTextures[i].Clear();
 
-            Textures.AddRange(verttexnorm.Item2);
+            ListsOfTextures[i].AddRange(verttexnorm.Item2);
 
-            Normals.Clear();
+            ListsOfNormals[i].Clear();
 
-            Normals.AddRange(verttexnorm.Item3);
+            ListsOfNormals[i].AddRange(verttexnorm.Item3);
 
-            verttexnorm = ClipThePolygon((Vertices, Textures, Normals), plane);
+            verttexnorm = ClipThePolygon((ListsOfVertices[i], ListsOfTextures[i], ListsOfNormals[i]), planes[i]);
         }
 
         return verttexnorm;
@@ -690,8 +697,6 @@ public class ManagerMain : MonoBehaviour
             isPortal = polygonData.Portal != -1;
 
             (List<Vector3>, List<Vector4>, List<Vector3>) clippedData = ClippingPlanesForPolygon((renderData.Vertices, renderData.Textures, renderData.Normals), APlanes);
-
-            ListsOfLists[planeIndex] = clippedData;
 
             int count = clippedData.Item1.Count;
 
