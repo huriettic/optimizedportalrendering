@@ -402,19 +402,22 @@ public class ManagerMain : MonoBehaviour
         }
     }
 
-    public void CreateClippingPlanes(List<Vector3> aVertices, List<Plane> aList, Vector3 aViewPos)
+    public void CreateClippingPlanes(List<Vector3> vertices, List<Plane> planes, Vector3 viewPos)
     {
-        int count = aVertices.Count;
+        int count = vertices.Count;
         for (int i = 0; i < count; i++)
         {
             int j = (i + 1) % count;
-            var p1 = aVertices[i];
-            var p2 = aVertices[j];
-            var n = Vector3.Cross(p1 - p2, aViewPos - p2);
-            var l = n.magnitude;
-            if (l < 0.01f)
-                continue;
-            aList.Add(new Plane(n / l, aViewPos));
+
+            Vector3 p1 = vertices[i];
+            Vector3 p2 = vertices[j];
+            Vector3 normal = Vector3.Cross(p1 - p2, viewPos - p2);
+            float magnitude = normal.magnitude;
+
+            if (magnitude > 0.01f)
+            {
+                planes.Add(new Plane(normal / magnitude, p1));
+            }
         }
     }
 
