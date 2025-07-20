@@ -68,6 +68,10 @@ public class ManagerMain : MonoBehaviour
 
     private List<int> CombinedTriangles = new List<int>();
 
+    private List<Vector3> ClippedVertices = new List<Vector3>();
+
+    private List<Vector4> ClippedTextures = new List<Vector4>();
+
     private List<Vector3> OpaqueVertices = new List<Vector3>();
 
     private List<int> OpaqueTriangles = new List<int>();
@@ -91,10 +95,6 @@ public class ManagerMain : MonoBehaviour
     private List<Vector4> outtex = new List<Vector4>();
 
     private List<List<Plane>> ListsOfPlanes = new List<List<Plane>>();
-
-    private List<List<Vector3>> ListsOfVertices = new List<List<Vector3>>();
-
-    private List<List<Vector4>> ListsOfTextures = new List<List<Vector4>>();
 
     private Matrix4x4 matrix;
 
@@ -297,13 +297,6 @@ public class ManagerMain : MonoBehaviour
             {
                 ListsOfPlanes.Add(new List<Plane>());
             }
-        }
-
-        for (int i = 0; i < 20; i++)
-        {
-            ListsOfVertices.Add(new List<Vector3>());
-
-            ListsOfTextures.Add(new List<Vector4>());
         }
     }
 
@@ -525,17 +518,17 @@ public class ManagerMain : MonoBehaviour
 
     public (List<Vector3>, List<Vector4>) ClippingPlanesForPolygon((List<Vector3>, List<Vector4>) verttexnorm, List<Plane> planes)
     {
-        for (int i = 0; i < planes.Count; i++)
+        foreach (Plane plane in planes)
         {
-            ListsOfVertices[i].Clear();
+            ClippedVertices.Clear();
 
-            ListsOfVertices[i].AddRange(verttexnorm.Item1);
+            ClippedVertices.AddRange(verttexnorm.Item1);
 
-            ListsOfTextures[i].Clear();
+            ClippedTextures.Clear();
 
-            ListsOfTextures[i].AddRange(verttexnorm.Item2);
+            ClippedTextures.AddRange(verttexnorm.Item2);
 
-            verttexnorm = ClipThePolygon((ListsOfVertices[i], ListsOfTextures[i]), planes[i]);
+            verttexnorm = ClipThePolygon((ClippedVertices, ClippedTextures), plane);
         }
 
         return verttexnorm;
