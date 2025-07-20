@@ -713,44 +713,46 @@ public class ManagerMain : MonoBehaviour
 
             if (isOpaque)
             {
-                OpaqueVertices.AddRange(vertices);
-
-                OpaqueTextures.AddRange(textures);
-
-                OpaqueNormals.AddRange(normals);
-
                 if (count > 2)
                 {
+                    for (int i = 0; i < count; i++)
+                    {
+                        OpaqueVertices.Add(vertices[i]);
+                        OpaqueTextures.Add(textures[i]);
+                        OpaqueNormals.Add(normals[i]);
+                    }
+
                     for (int e = 0; e < count - 2; e++)
                     {
                         OpaqueTriangles.Add(0 + h);
                         OpaqueTriangles.Add(e + 1 + h);
                         OpaqueTriangles.Add(e + 2 + h);
                     }
-                }
 
-                h += count;
+                    h += count;
+                }
             }
 
             if (isTransparent)
             {
-                TransparentVertices.AddRange(vertices);
-
-                TransparentTextures.AddRange(textures);
-
-                TransparentNormals.AddRange(normals);
-
                 if (count > 2)
                 {
+                    for (int i = 0; i < count; i++)
+                    {
+                        TransparentVertices.Add(vertices[i]);
+                        TransparentTextures.Add(textures[i]);
+                        TransparentNormals.Add(normals[i]);
+                    }
+
                     for (int e = 0; e < count - 2; e++)
                     {
                         TransparentTriangles.Add(0 + y);
                         TransparentTriangles.Add(e + 1 + y);
                         TransparentTriangles.Add(e + 2 + y);
                     }
-                }
 
-                y += count;
+                    y += count;
+                }
             }
 
             if (isPortal)
