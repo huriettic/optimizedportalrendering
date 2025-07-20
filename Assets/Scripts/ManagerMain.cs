@@ -705,13 +705,19 @@ public class ManagerMain : MonoBehaviour
 
             int count = clippedData.Item1.Count;
 
+            List<Vector3> vertices = clippedData.Item1;
+
+            List<Vector4> textures = clippedData.Item2;
+
+            List<Vector3> normals = clippedData.Item3;
+
             if (isOpaque)
             {
-                OpaqueVertices.AddRange(clippedData.Item1);
+                OpaqueVertices.AddRange(vertices);
 
-                OpaqueTextures.AddRange(clippedData.Item2);
+                OpaqueTextures.AddRange(textures);
 
-                OpaqueNormals.AddRange(clippedData.Item3);
+                OpaqueNormals.AddRange(normals);
 
                 if (count > 2)
                 {
@@ -728,11 +734,11 @@ public class ManagerMain : MonoBehaviour
 
             if (isTransparent)
             {
-                TransparentVertices.AddRange(clippedData.Item1);
+                TransparentVertices.AddRange(vertices);
 
-                TransparentTextures.AddRange(clippedData.Item2);
+                TransparentTextures.AddRange(textures);
 
-                TransparentNormals.AddRange(clippedData.Item3);
+                TransparentNormals.AddRange(normals);
 
                 if (count > 2)
                 {
@@ -764,7 +770,7 @@ public class ManagerMain : MonoBehaviour
                     {
                         ListsOfPlanes[polygonData.PortalNumber].Clear();
 
-                        CreateClippingPlanes(clippedData.Item1, ListsOfPlanes[polygonData.PortalNumber], CamPoint);
+                        CreateClippingPlanes(vertices, ListsOfPlanes[polygonData.PortalNumber], CamPoint);
 
                         GetPolygons(ListsOfPlanes[polygonData.PortalNumber], polygonPortal);
                     }
