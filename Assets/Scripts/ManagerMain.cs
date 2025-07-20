@@ -6,6 +6,8 @@ public class ManagerMain : MonoBehaviour
 {
     public string Name = "Tutorial";
 
+    public string Textures = "Textures";
+
     private float d;
 
     private int h;
@@ -340,8 +342,8 @@ public class ManagerMain : MonoBehaviour
 
         DirectionalLight.SetActive(false);
 
-        opaquematerial.mainTexture = Resources.Load<Texture2DArray>("Textures");
-        transparentmaterial.mainTexture = Resources.Load<Texture2DArray>("Textures");
+        opaquematerial.mainTexture = Resources.Load<Texture2DArray>(Textures);
+        transparentmaterial.mainTexture = Resources.Load<Texture2DArray>(Textures);
     }
 
     public void Playerstart()
@@ -758,7 +760,7 @@ public class ManagerMain : MonoBehaviour
 
                 if (d != 0)
                 {
-                    if (clippedData.Item1.Count > 2)
+                    if (count > 2)
                     {
                         ListsOfPlanes[polygonData.PortalNumber].Clear();
 
