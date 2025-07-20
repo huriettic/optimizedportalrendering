@@ -311,25 +311,24 @@ public class ManagerMain : MonoBehaviour
     {
         Shader shader = Resources.Load<Shader>("TexArray");
 
-        opaquematerial = new Material(shader);
+        Shader shaderT = Resources.Load<Shader>("TexArrayT");
 
         for (int i = 0; i < Rendering.LightColor.Count; i++)
         {
             LightColor[i] = new Color(Rendering.LightColor[i].MeshLight.r, Rendering.LightColor[i].MeshLight.g, Rendering.LightColor[i].MeshLight.b, 1.0f);
         }
 
-        opaquematerial.SetColorArray("_ColorArray", LightColor);
+        opaquematerial = new Material(shader);
 
-        Shader shaderT = Resources.Load<Shader>("TexArrayT");
+        opaquematerial.mainTexture = Resources.Load<Texture2DArray>(Textures);
+
+        opaquematerial.SetColorArray("_ColorArray", LightColor);
 
         transparentmaterial = new Material(shaderT);
 
-        transparentmaterial.SetColorArray("_ColorArray", LightColor);
-
-        DirectionalLight.SetActive(false);
-
-        opaquematerial.mainTexture = Resources.Load<Texture2DArray>(Textures);
         transparentmaterial.mainTexture = Resources.Load<Texture2DArray>(Textures);
+
+        transparentmaterial.SetColorArray("_ColorArray", LightColor);
     }
 
     public void Playerstart()
