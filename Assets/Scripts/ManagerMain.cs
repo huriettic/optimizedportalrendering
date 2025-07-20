@@ -64,8 +64,6 @@ public class ManagerMain : MonoBehaviour
 
     private GameObject CollisionObjects;
 
-    private List<Vector4> outtex = new List<Vector4>();
-
     private List<Vector3> CombinedVertices = new List<Vector3>();
 
     private List<int> CombinedTriangles = new List<int>();
@@ -76,13 +74,9 @@ public class ManagerMain : MonoBehaviour
 
     private List<Vector4> OpaqueTextures = new List<Vector4>();
 
-    private List<Vector3> OpaqueNormals = new List<Vector3>();
-
     private List<Vector3> TransparentVertices = new List<Vector3>();
 
     private List<Vector4> TransparentTextures = new List<Vector4>();
-
-    private List<Vector3> TransparentNormals = new List<Vector3>();
 
     private List<int> TransparentTriangles = new List<int>();
 
@@ -94,15 +88,13 @@ public class ManagerMain : MonoBehaviour
 
     private List<Vector3> outvertices = new List<Vector3>();
 
-    private List<Vector3> outnormals = new List<Vector3>();
+    private List<Vector4> outtex = new List<Vector4>();
 
     private List<List<Plane>> ListsOfPlanes = new List<List<Plane>>();
 
     private List<List<Vector3>> ListsOfVertices = new List<List<Vector3>>();
 
     private List<List<Vector4>> ListsOfTextures = new List<List<Vector4>>();
-
-    private List<List<Vector3>> ListsOfNormals = new List<List<Vector3>>();
 
     private Matrix4x4 matrix;
 
@@ -259,13 +251,9 @@ public class ManagerMain : MonoBehaviour
 
             OpaqueTriangles.Clear();
 
-            OpaqueNormals.Clear();
-
             TransparentVertices.Clear();
 
             TransparentTextures.Clear();
-
-            TransparentNormals.Clear();
 
             TransparentTriangles.Clear();
 
@@ -316,8 +304,6 @@ public class ManagerMain : MonoBehaviour
             ListsOfVertices.Add(new List<Vector3>());
 
             ListsOfTextures.Add(new List<Vector4>());
-
-            ListsOfNormals.Add(new List<Vector3>());
         }
     }
 
@@ -499,11 +485,10 @@ public class ManagerMain : MonoBehaviour
         Player.Move((targetMovement + currentForce) * speed * Time.deltaTime);
     }
 
-    public (List<Vector3>, List<Vector4>, List<Vector3>) ClipThePolygon((List<Vector3>, List<Vector4>, List<Vector3>) verttexnorm, Plane plane, float epsilon = 0.00001f)
+    public (List<Vector3>, List<Vector4>) ClipThePolygon((List<Vector3>, List<Vector4>) verttexnorm, Plane plane, float epsilon = 0.00001f)
     {
         outvertices.Clear();
         outtex.Clear();
-        outnormals.Clear();
 
         int count = verttexnorm.Item1.Count;
 
@@ -515,8 +500,6 @@ public class ManagerMain : MonoBehaviour
             Vector3 p2 = verttexnorm.Item1[j];
             Vector4 t1 = verttexnorm.Item2[i];
             Vector4 t2 = verttexnorm.Item2[j];
-            Vector3 n1 = verttexnorm.Item3[i];
-            Vector3 n2 = verttexnorm.Item3[j];
 
             float d1 = plane.GetDistanceToPoint(p1);
             float d2 = plane.GetDistanceToPoint(p2);
@@ -525,7 +508,6 @@ public class ManagerMain : MonoBehaviour
             {
                 outvertices.Add(p1);
                 outtex.Add(t1);
-                outnormals.Add(n1);
             }
 
             if (d1 * d2 < 0)
@@ -533,14 +515,13 @@ public class ManagerMain : MonoBehaviour
                 float d = d1 / (d1 - d2);
                 outvertices.Add(Vector3.Lerp(p1, p2, d));
                 outtex.Add(Vector4.Lerp(t1, t2, d));
-                outnormals.Add(Vector3.Lerp(n1, n2, d).normalized);
             }
         }
 
-        return (outvertices, outtex, outnormals);
+        return (outvertices, outtex);
     }
 
-    public (List<Vector3>, List<Vector4>, List<Vector3>) ClippingPlanesForPolygon((List<Vector3>, List<Vector4>, List<Vector3>) verttexnorm, List<Plane> planes)
+    public (List<Vector3>, List<Vector4>) ClippingPlanesForPolygon((List<Vector3>, List<Vector4>) verttexnorm, List<Plane> planes)
     {
         for (int i = 0; i < planes.Count; i++)
         {
@@ -552,11 +533,7 @@ public class ManagerMain : MonoBehaviour
 
             ListsOfTextures[i].AddRange(verttexnorm.Item2);
 
-            ListsOfNormals[i].Clear();
-
-            ListsOfNormals[i].AddRange(verttexnorm.Item3);
-
-            verttexnorm = ClipThePolygon((ListsOfVertices[i], ListsOfTextures[i], ListsOfNormals[i]), planes[i]);
+            verttexnorm = ClipThePolygon((ListsOfVertices[i], ListsOfTextures[i]), planes[i]);
         }
 
         return verttexnorm;
@@ -646,8 +623,6 @@ public class ManagerMain : MonoBehaviour
 
         opaquemesh.SetTriangles(OpaqueTriangles, 0);
 
-        opaquemesh.SetNormals(OpaqueNormals);
-
         transparentmesh.Clear();
 
         transparentmesh.subMeshCount = TransparentTriangles.Count / 3;
@@ -664,8 +639,6 @@ public class ManagerMain : MonoBehaviour
 
             transparentmesh.SetTriangles(OneTriangle, i / 3);
         }
-
-        transparentmesh.SetNormals(TransparentNormals);
     }
 
     public void Renderit()
@@ -701,15 +674,13 @@ public class ManagerMain : MonoBehaviour
             isTransparent = polygonData.Transparent != -1;
             isPortal = polygonData.Portal != -1;
 
-            (List<Vector3>, List<Vector4>, List<Vector3>) clippedData = ClippingPlanesForPolygon((renderData.Vertices, renderData.Textures, renderData.Normals), APlanes);
+            (List<Vector3>, List<Vector4>) clippedData = ClippingPlanesForPolygon((renderData.Vertices, renderData.Textures), APlanes);
 
             int count = clippedData.Item1.Count;
 
             List<Vector3> vertices = clippedData.Item1;
 
             List<Vector4> textures = clippedData.Item2;
-
-            List<Vector3> normals = clippedData.Item3;
 
             if (isOpaque)
             {
@@ -719,7 +690,6 @@ public class ManagerMain : MonoBehaviour
                     {
                         OpaqueVertices.Add(vertices[i]);
                         OpaqueTextures.Add(textures[i]);
-                        OpaqueNormals.Add(normals[i]);
                     }
 
                     for (int e = 0; e < count - 2; e++)
@@ -741,7 +711,6 @@ public class ManagerMain : MonoBehaviour
                     {
                         TransparentVertices.Add(vertices[i]);
                         TransparentTextures.Add(textures[i]);
-                        TransparentNormals.Add(normals[i]);
                     }
 
                     for (int e = 0; e < count - 2; e++)
