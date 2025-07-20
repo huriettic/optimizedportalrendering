@@ -423,7 +423,10 @@ public class ManagerMain : MonoBehaviour
             {
                 RenderingData.PolygonMesh polygonMesh = Rendering.PolygonMeshes[Rendering.Polyhedrons[i].MeshCollisions[e]];
 
-                CombinedVertices.AddRange(polygonMesh.Vertices);
+                for (int f = 0; f < polygonMesh.Vertices.Count; f++)
+                {
+                    CombinedVertices.Add(polygonMesh.Vertices[f]);
+                }
 
                 for (int j = 0; j < polygonMesh.Triangles.Count; j++)
                 {
