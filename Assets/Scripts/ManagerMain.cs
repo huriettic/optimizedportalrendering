@@ -200,7 +200,11 @@ public class ManagerMain : MonoBehaviour
 
         opaquemesh = new Mesh();
 
+        opaquemesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
+
         transparentmesh = new Mesh();
+
+        transparentmesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
 
         rp = new RenderParams();
 
@@ -487,29 +491,32 @@ public class ManagerMain : MonoBehaviour
 
         int count = verttexnorm.Item1.Count;
 
-        for (int i = 0; i < count; i++)
+        if (count > 2)
         {
-            int j = (i + 1) % count;
-
-            Vector3 p1 = verttexnorm.Item1[i];
-            Vector3 p2 = verttexnorm.Item1[j];
-            Vector4 t1 = verttexnorm.Item2[i];
-            Vector4 t2 = verttexnorm.Item2[j];
-
-            float d1 = plane.GetDistanceToPoint(p1);
-            float d2 = plane.GetDistanceToPoint(p2);
-
-            if (d1 >= -epsilon)
+            for (int i = 0; i < count; i++)
             {
-                outvertices.Add(p1);
-                outtex.Add(t1);
-            }
+                int j = (i + 1) % count;
 
-            if (d1 * d2 < 0)
-            {
-                float d = d1 / (d1 - d2);
-                outvertices.Add(Vector3.Lerp(p1, p2, d));
-                outtex.Add(Vector4.Lerp(t1, t2, d));
+                Vector3 p1 = verttexnorm.Item1[i];
+                Vector3 p2 = verttexnorm.Item1[j];
+                Vector4 t1 = verttexnorm.Item2[i];
+                Vector4 t2 = verttexnorm.Item2[j];
+
+                float d1 = plane.GetDistanceToPoint(p1);
+                float d2 = plane.GetDistanceToPoint(p2);
+
+                if (d1 >= -epsilon)
+                {
+                    outvertices.Add(p1);
+                    outtex.Add(t1);
+                }
+
+                if (d1 * d2 < 0)
+                {
+                    float d = d1 / (d1 - d2);
+                    outvertices.Add(Vector3.Lerp(p1, p2, d));
+                    outtex.Add(Vector4.Lerp(t1, t2, d));
+                }
             }
         }
 
@@ -520,15 +527,22 @@ public class ManagerMain : MonoBehaviour
     {
         foreach (Plane plane in planes)
         {
-            ClippedVertices.Clear();
+            if (verttexnorm.Item1.Count > 2)
+            {
+                ClippedVertices.Clear();
 
-            ClippedVertices.AddRange(verttexnorm.Item1);
+                ClippedVertices.AddRange(verttexnorm.Item1);
 
-            ClippedTextures.Clear();
+                ClippedTextures.Clear();
 
-            ClippedTextures.AddRange(verttexnorm.Item2);
+                ClippedTextures.AddRange(verttexnorm.Item2);
 
-            verttexnorm = ClipThePolygon((ClippedVertices, ClippedTextures), plane);
+                verttexnorm = ClipThePolygon((ClippedVertices, ClippedTextures), plane);
+            }
+            else
+            {
+                break;
+            }
         }
 
         return verttexnorm;
