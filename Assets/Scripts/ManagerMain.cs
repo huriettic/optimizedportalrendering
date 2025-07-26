@@ -38,12 +38,6 @@ public class ManagerMain : MonoBehaviour
 
     private CharacterController Player;
 
-    private bool isOpaque;
-
-    private bool isTransparent;
-
-    private bool isPortal;
-
     private Color[] LightColor;
 
     private int[] OneTriangle;
@@ -51,8 +45,6 @@ public class ManagerMain : MonoBehaviour
     private Camera Cam;
 
     private Vector3 CamPoint;
-
-    private GameObject DirectionalLight;
 
     private RenderParams rp;
 
@@ -181,8 +173,6 @@ public class ManagerMain : MonoBehaviour
         Player = GameObject.Find("Player").GetComponent<CharacterController>();
 
         Cam = Camera.main;
-
-        DirectionalLight = GameObject.Find("Directional Light");
     }
 
     // Start is called before the first frame update
@@ -675,13 +665,18 @@ public class ManagerMain : MonoBehaviour
                 continue;
             }
 
-            RenderingData.PolygonMesh renderData = Rendering.PolygonMeshes[planeIndex];
-
             RenderingData.PolygonData polygonData = Rendering.PolygonInformation[planeIndex];
 
-            isOpaque = polygonData.Render != -1;
-            isTransparent = polygonData.Transparent != -1;
-            isPortal = polygonData.Portal != -1;
+            int isOpaque = polygonData.Render;
+            int isTransparent = polygonData.Transparent;
+            int isPortal = polygonData.Portal;
+
+            if (isOpaque == -1 && isTransparent == -1 && isPortal == -1)
+            {
+                continue;
+            }
+
+            RenderingData.PolygonMesh renderData = Rendering.PolygonMeshes[planeIndex];
 
             (List<Vector3>, List<Vector4>) clippedData = ClippingPlanesForPolygon((renderData.Vertices, renderData.Textures), APlanes);
 
@@ -691,7 +686,7 @@ public class ManagerMain : MonoBehaviour
 
             List<Vector4> textures = clippedData.Item2;
 
-            if (isOpaque)
+            if (isOpaque != -1)
             {
                 if (count > 2)
                 {
@@ -712,7 +707,7 @@ public class ManagerMain : MonoBehaviour
                 }
             }
 
-            if (isTransparent)
+            if (isTransparent != -1)
             {
                 if (count > 2)
                 {
@@ -733,7 +728,7 @@ public class ManagerMain : MonoBehaviour
                 }
             }
 
-            if (isPortal)
+            if (isPortal != -1)
             {
                 RenderingData.Polyhedron polygonPortal = Rendering.Polyhedrons[polygonData.Portal];
 
