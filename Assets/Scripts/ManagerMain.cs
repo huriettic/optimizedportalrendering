@@ -481,32 +481,34 @@ public class ManagerMain : MonoBehaviour
 
         int count = verttexnorm.Item1.Count;
 
-        if (count > 2)
+        if (count < 3)
         {
-            for (int i = 0; i < count; i++)
+            return (outvertices, outtex);
+        }
+
+        for (int i = 0; i < count; i++)
+        {
+            int j = (i + 1) % count;
+
+            Vector3 p1 = verttexnorm.Item1[i];
+            Vector3 p2 = verttexnorm.Item1[j];
+            Vector4 t1 = verttexnorm.Item2[i];
+            Vector4 t2 = verttexnorm.Item2[j];
+
+            float d1 = plane.GetDistanceToPoint(p1);
+            float d2 = plane.GetDistanceToPoint(p2);
+
+            if (d1 >= -epsilon)
             {
-                int j = (i + 1) % count;
+                outvertices.Add(p1);
+                outtex.Add(t1);
+            }
 
-                Vector3 p1 = verttexnorm.Item1[i];
-                Vector3 p2 = verttexnorm.Item1[j];
-                Vector4 t1 = verttexnorm.Item2[i];
-                Vector4 t2 = verttexnorm.Item2[j];
-
-                float d1 = plane.GetDistanceToPoint(p1);
-                float d2 = plane.GetDistanceToPoint(p2);
-
-                if (d1 >= -epsilon)
-                {
-                    outvertices.Add(p1);
-                    outtex.Add(t1);
-                }
-
-                if (d1 * d2 < 0)
-                {
-                    float d = d1 / (d1 - d2);
-                    outvertices.Add(Vector3.Lerp(p1, p2, d));
-                    outtex.Add(Vector4.Lerp(t1, t2, d));
-                }
+            if (d1 * d2 < 0)
+            {
+                float d = d1 / (d1 - d2);
+                outvertices.Add(Vector3.Lerp(p1, p2, d));
+                outtex.Add(Vector4.Lerp(t1, t2, d));
             }
         }
 
@@ -517,22 +519,20 @@ public class ManagerMain : MonoBehaviour
     {
         foreach (Plane plane in planes)
         {
-            if (verttexnorm.Item1.Count > 2)
-            {
-                ClippedVertices.Clear();
-
-                ClippedVertices.AddRange(verttexnorm.Item1);
-
-                ClippedTextures.Clear();
-
-                ClippedTextures.AddRange(verttexnorm.Item2);
-
-                verttexnorm = ClipThePolygon((ClippedVertices, ClippedTextures), plane);
-            }
-            else
+            if (verttexnorm.Item1.Count < 3)
             {
                 break;
             }
+
+            ClippedVertices.Clear();
+
+            ClippedVertices.AddRange(verttexnorm.Item1);
+
+            ClippedTextures.Clear();
+
+            ClippedTextures.AddRange(verttexnorm.Item2);
+
+            verttexnorm = ClipThePolygon((ClippedVertices, ClippedTextures), plane);
         }
 
         return verttexnorm;
@@ -656,7 +656,7 @@ public class ManagerMain : MonoBehaviour
 
     public void GetPolygons(List<Plane> APlanes, RenderingData.Polyhedron BSector)
     {
-        foreach (var planeIndex in BSector.MeshPlanes)
+        foreach (int planeIndex in BSector.MeshPlanes)
         {
             d = Planes[planeIndex].GetDistanceToPoint(CamPoint);
 
@@ -682,50 +682,49 @@ public class ManagerMain : MonoBehaviour
 
             int count = clippedData.Item1.Count;
 
+            if (count < 3)
+            {
+                continue;
+            }
+
             List<Vector3> vertices = clippedData.Item1;
 
             List<Vector4> textures = clippedData.Item2;
 
             if (isOpaque != -1)
             {
-                if (count > 2)
+                for (int i = 0; i < count; i++)
                 {
-                    for (int i = 0; i < count; i++)
-                    {
-                        OpaqueVertices.Add(vertices[i]);
-                        OpaqueTextures.Add(textures[i]);
-                    }
-
-                    for (int e = 0; e < count - 2; e++)
-                    {
-                        OpaqueTriangles.Add(0 + h);
-                        OpaqueTriangles.Add(e + 1 + h);
-                        OpaqueTriangles.Add(e + 2 + h);
-                    }
-
-                    h += count;
+                    OpaqueVertices.Add(vertices[i]);
+                    OpaqueTextures.Add(textures[i]);
                 }
+
+                for (int e = 0; e < count - 2; e++)
+                {
+                    OpaqueTriangles.Add(0 + h);
+                    OpaqueTriangles.Add(e + 1 + h);
+                    OpaqueTriangles.Add(e + 2 + h);
+                }
+
+                h += count;
             }
 
             if (isTransparent != -1)
             {
-                if (count > 2)
+                for (int i = 0; i < count; i++)
                 {
-                    for (int i = 0; i < count; i++)
-                    {
-                        TransparentVertices.Add(vertices[i]);
-                        TransparentTextures.Add(textures[i]);
-                    }
-
-                    for (int e = 0; e < count - 2; e++)
-                    {
-                        TransparentTriangles.Add(0 + y);
-                        TransparentTriangles.Add(e + 1 + y);
-                        TransparentTriangles.Add(e + 2 + y);
-                    }
-
-                    y += count;
+                    TransparentVertices.Add(vertices[i]);
+                    TransparentTextures.Add(textures[i]);
                 }
+
+                for (int e = 0; e < count - 2; e++)
+                {
+                    TransparentTriangles.Add(0 + y);
+                    TransparentTriangles.Add(e + 1 + y);
+                    TransparentTriangles.Add(e + 2 + y);
+                }
+
+                y += count;
             }
 
             if (isPortal != -1)
@@ -739,17 +738,16 @@ public class ManagerMain : MonoBehaviour
                     continue;
                 }
 
-                if (d != 0)
+                if (d == 0)
                 {
-                    if (count > 2)
-                    {
-                        ListsOfPlanes[polygonData.PortalNumber].Clear();
-
-                        CreateClippingPlanes(vertices, ListsOfPlanes[polygonData.PortalNumber], CamPoint);
-
-                        GetPolygons(ListsOfPlanes[polygonData.PortalNumber], polygonPortal);
-                    }
+                    continue;
                 }
+
+                ListsOfPlanes[polygonData.PortalNumber].Clear();
+
+                CreateClippingPlanes(vertices, ListsOfPlanes[polygonData.PortalNumber], CamPoint);
+
+                GetPolygons(ListsOfPlanes[polygonData.PortalNumber], polygonPortal);
             }
         }
     }
